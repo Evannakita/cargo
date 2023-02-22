@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "tag": "cargo:train_tracks"
+      }
+    },
+    "pattern": [
+      "# #",
+      " # ",
+      " # "
+    ],
+    "result": {
+      "count": 2,
+      "item": "cargo:train_switch"
+    }
+  }

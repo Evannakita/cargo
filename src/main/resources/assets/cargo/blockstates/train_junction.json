@@ -1,0 +1,24 @@
+{
+    "variants": {
+      "shape=T": {
+        "model": "cargo:block/train_junction_straight"
+      },
+      "shape=X": {
+        "model": "cargo:block/train_junction_diagonal"
+      },
+      "shape=ns_left": {
+        "model": "cargo:block/train_junction_left"
+      },
+      "shape=ns_right": {
+        "model": "cargo:block/train_junction_right"
+      },
+      "shape=ew_left": {
+        "model": "cargo:block/train_junction_left",
+        "y": 90
+      },
+      "shape=ew_right": {
+        "model": "cargo:block/train_junction_right",
+        "y": 90
+      }
+    }
+  }

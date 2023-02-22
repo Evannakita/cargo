@@ -1,0 +1,18 @@
+{
+    "variants": {
+      "facing=east": {
+        "model": "cargo:block/train_axle",
+        "y": 90
+      },
+      "facing=north": {
+        "model": "cargo:block/train_axle"
+      },
+      "facing=south": {
+        "model": "cargo:block/train_axle"
+      },
+      "facing=west": {
+        "model": "cargo:block/train_axle",
+        "y": 90
+      }
+    }
+  }

@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "cargo:rubber"
+      }
+    },
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "result": {
+      "item": "cargo:rubber_block"
+    }
+  }

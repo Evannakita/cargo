@@ -1,0 +1,17 @@
+{
+    "block.minecraft.rail": "Minecart Rails",
+    "block.cargo.bicycle_frame": "Bicycle Frame",
+    "block.cargo.bicycle_wheel": "Bicycle Wheel",
+    "block.cargo.diesel_bucket": "Bucket of Diesel",
+    "block.cargo.latex_bucket": "Bucket of Latex",
+    "block.cargo.petroleum_bucket": "Bucket of Petroleum",
+    "block.cargo.jack": "Jack",
+    "block.cargo.rubber": "Rubber",
+    "block.cargo.rubber_block": "Rubber Block",
+    "block.cargo.refinery": "Refinery",
+    "block.cargo.train_axle": "Train Axle",
+    "block.cargo.train_junction": "Train Junction",
+    "block.cargo.train_switch": "Train Switch",
+    "block.cargo.train_tracks": "Train Tracks",
+    "block.cargo.train_wheel": "Train Wheel"
+}

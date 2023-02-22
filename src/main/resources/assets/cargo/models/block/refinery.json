@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+      "front": "cargo:block/refinery_front",
+      "side": "cargo:block/refinery_side",
+      "top": "cargo:block/refinery_top"
+    }
+  }

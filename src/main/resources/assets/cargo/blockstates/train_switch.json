@@ -1,0 +1,94 @@
+{
+    "variants": {
+      "shape=north_left": {
+        "model": "cargo:block/train_switch_left"
+      },
+      "shape=north_wye": {
+        "model": "cargo:block/train_switch_wye"
+      },
+      "shape=north_right": {
+        "model": "cargo:block/train_switch_right"
+      },
+      "shape=northeast_left": {
+        "model": "cargo:block/train_switch_left_diagonal"
+      },
+      "shape=northeast_wye": {
+        "model": "cargo:block/train_switch_wye_diagonal"
+      },
+      "shape=northeast_right": {
+        "model": "cargo:block/train_switch_right_diagonal"
+      },
+      "shape=east_left": {
+        "model": "cargo:block/train_switch_left",
+        "y": 90
+      },
+      "shape=east_wye": {
+        "model": "cargo:block/train_switch_wye",
+        "y": 90
+      },
+      "shape=east_right": {
+        "model": "cargo:block/train_switch_right",
+        "y": 90
+      },
+      "shape=southeast_left": {
+        "model": "cargo:block/train_switch_left_diagonal",
+        "y": 90
+      },
+      "shape=southeast_wye": {
+        "model": "cargo:block/train_switch_wye_diagonal",
+        "y": 90
+      },
+      "shape=southeast_right": {
+        "model": "cargo:block/train_switch_right_diagonal",
+        "y": 90
+      },
+      "shape=south_left": {
+        "model": "cargo:block/train_switch_left",
+        "y": 180
+      },
+      "shape=south_wye": {
+        "model": "cargo:block/train_switch_wye",
+        "y": 180
+      },
+      "shape=south_right": {
+        "model": "cargo:block/train_switch_right",
+        "y": 180
+      },
+      "shape=southwest_left": {
+        "model": "cargo:block/train_switch_left_diagonal",
+        "y": 180
+      },
+      "shape=southwest_wye": {
+        "model": "cargo:block/train_switch_wye_diagonal",
+        "y": 180
+      },
+      "shape=southwest_right": {
+        "model": "cargo:block/train_switch_right_diagonal",
+        "y": 180
+      },
+      "shape=west_left": {
+        "model": "cargo:block/train_switch_left",
+        "y": 270
+      },
+      "shape=west_wye": {
+        "model": "cargo:block/train_switch_wye",
+        "y": 270
+      },
+      "shape=west_right": {
+        "model": "cargo:block/train_switch_right",
+        "y": 270
+      },
+      "shape=northwest_left": {
+        "model": "cargo:block/train_switch_left_diagonal",
+        "y": 270
+      },
+      "shape=northwest_wye": {
+        "model": "cargo:block/train_switch_wye_diagonal",
+        "y": 270
+      },
+      "shape=northwest_right": {
+        "model": "cargo:block/train_switch_right_diagonal",
+        "y": 270
+      }
+    }
+  }
