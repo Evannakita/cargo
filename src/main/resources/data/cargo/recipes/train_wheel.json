@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:iron_ingot"
+      },
+      "X": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "pattern": [
+      "XXX",
+      "X#X",
+      "XXX"
+    ],
+    "result": {
+      "count": 1,
+      "item": "cargo:train_wheel"
+    }
+  }

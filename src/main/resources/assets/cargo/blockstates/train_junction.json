@@ -1,9 +1,9 @@
 {
     "variants": {
-      "shape=T": {
+      "shape=t": {
         "model": "cargo:block/train_junction_straight"
       },
-      "shape=X": {
+      "shape=x": {
         "model": "cargo:block/train_junction_diagonal"
       },
       "shape=ns_left": {

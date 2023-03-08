@@ -12,6 +12,8 @@ import evannakita.cargo.block.enums.TrackDirection;
 import evannakita.cargo.block.enums.TrackShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -74,26 +76,26 @@ public class TrackPlacementHelper {
                 this.neighbors.add(this.pos.south().east());
                 break;
             }
-            case ASCENDING_EAST: {
-                this.neighbors.add(this.pos.west());
-                this.neighbors.add(this.pos.east().up());
-                break;
-            }
-            case ASCENDING_WEST: {
-                this.neighbors.add(this.pos.west().up());
-                this.neighbors.add(this.pos.east());
-                break;
-            }
-            case ASCENDING_NORTH: {
-                this.neighbors.add(this.pos.north().up());
-                this.neighbors.add(this.pos.south());
-                break;
-            }
-            case ASCENDING_SOUTH: {
-                this.neighbors.add(this.pos.north());
-                this.neighbors.add(this.pos.south().up());
-                break;
-            }
+            // case ASCENDING_EAST: {
+            //     this.neighbors.add(this.pos.west());
+            //     this.neighbors.add(this.pos.east().up());
+            //     break;
+            // }
+            // case ASCENDING_WEST: {
+            //     this.neighbors.add(this.pos.west().up());
+            //     this.neighbors.add(this.pos.east());
+            //     break;
+            // }
+            // case ASCENDING_NORTH: {
+            //     this.neighbors.add(this.pos.north().up());
+            //     this.neighbors.add(this.pos.south());
+            //     break;
+            // }
+            // case ASCENDING_SOUTH: {
+            //     this.neighbors.add(this.pos.north());
+            //     this.neighbors.add(this.pos.south().up());
+            //     break;
+            // }
             case NORTH_SOUTHEAST: {
                 this.neighbors.add(this.pos.north());
                 this.neighbors.add(this.pos.south().east());
@@ -486,23 +488,25 @@ public class TrackPlacementHelper {
         }
         if (trackShape2 == null) {
             trackShape2 = trackShape;
+        } else {
+            world.playSound(null, pos, SoundEvents.BLOCK_LADDER_STEP, SoundCategory.BLOCKS, 0.5f, 1.0f);
         }
-        if (trackShape2 == TrackShape.NORTH_SOUTH) {
-            if (AbstractTrackBlock.isTrack(this.world, this.pos.north().up())) {
-                trackShape2 = TrackShape.ASCENDING_NORTH;
-            }
-            if (AbstractTrackBlock.isTrack(this.world, this.pos.south().up())) {
-                trackShape2 = TrackShape.ASCENDING_SOUTH;
-            }
-        }
-        if (trackShape2 == TrackShape.EAST_WEST) {
-            if (AbstractTrackBlock.isTrack(this.world, this.pos.east().up())) {
-                trackShape2 = TrackShape.ASCENDING_EAST;
-            }
-            if (AbstractTrackBlock.isTrack(this.world, this.pos.west().up())) {
-                trackShape2 = TrackShape.ASCENDING_WEST;
-            }
-        }
+        // if (trackShape2 == TrackShape.NORTH_SOUTH) {
+        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.north().up())) {
+        //         trackShape2 = TrackShape.ASCENDING_NORTH;
+        //     }
+        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.south().up())) {
+        //         trackShape2 = TrackShape.ASCENDING_SOUTH;
+        //     }
+        // }
+        // if (trackShape2 == TrackShape.EAST_WEST) {
+        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.east().up())) {
+        //         trackShape2 = TrackShape.ASCENDING_EAST;
+        //     }
+        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.west().up())) {
+        //         trackShape2 = TrackShape.ASCENDING_WEST;
+        //     }
+        // }
         this.computeNeighbors(trackShape2);
         this.state = (BlockState)this.state.with(this.block.getTrackShapeProperty(), trackShape2);
         if (forceUpdate || this.world.getBlockState(this.pos) != this.state) {
@@ -860,6 +864,8 @@ public class TrackPlacementHelper {
         }
         if (switchShape2 == null) {
             switchShape2 = switchShape;
+        } else {
+            world.playSound(null, pos, SoundEvents.BLOCK_LADDER_STEP, SoundCategory.BLOCKS, 0.5f, 1.0f);
         }
         this.computeNeighbors(switchShape2);
         this.state = (BlockState)this.state.with(this.block.getSwitchShapeProperty(), switchShape2);
@@ -932,6 +938,8 @@ public class TrackPlacementHelper {
         }
         if (junctionShape2 == null) {
             junctionShape2 = junctionShape;
+        } else {
+            world.playSound(null, pos, SoundEvents.BLOCK_LADDER_STEP, SoundCategory.BLOCKS, 0.5f, 1.0f);
         }
         this.computeNeighbors(junctionShape2);
         this.state = (BlockState)this.state.with(this.block.getJunctionShapeProperty(), junctionShape2);

@@ -66,6 +66,7 @@ public class TrainSwitchBlock extends AbstractTrackBlock {
         };
         return (BlockState)((BlockState)blockState.with(this.getSwitchShapeProperty(), switchShape)).with(WATERLOGGED, bl);
     }
+
     @Override
     public Property<TrackShape> getTrackShapeProperty() {
         return null;

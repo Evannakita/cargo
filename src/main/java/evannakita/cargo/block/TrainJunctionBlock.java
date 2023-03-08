@@ -1,7 +1,6 @@
 package evannakita.cargo.block;
 
 import evannakita.cargo.block.enums.JunctionShape;
-import evannakita.cargo.block.enums.SwitchShape;
 import evannakita.cargo.block.enums.TrackShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -51,11 +50,6 @@ public class TrainJunctionBlock extends AbstractTrackBlock {
     }
     @Override
     public Property<TrackShape> getTrackShapeProperty() {
-        return null;
-    }
-
-    @Override
-    public Property<SwitchShape> getSwitchShapeProperty() {
         return null;
     }
 

@@ -160,6 +160,68 @@ public enum SwitchShape implements StringIdentifiable {
         }
     }
 
+    public TrackShape getTrackShape(Boolean powered) {
+        if (powered) {
+            switch (this) {
+                case NORTH_LEFT, SOUTH_LEFT:
+                    return TrackShape.NORTH_SOUTH;
+                case NORTHEAST_LEFT, SOUTHWEST_LEFT:
+                    return TrackShape.NORTHEAST_SOUTHWEST;
+                case EAST_LEFT, WEST_LEFT:
+                    return TrackShape.EAST_WEST;
+                case NORTHWEST_LEFT, SOUTHEAST_LEFT:
+                    return TrackShape.NORTHWEST_SOUTHEAST;
+                case SOUTHEAST_WYE, SOUTHEAST_RIGHT:
+                    return TrackShape.NORTH_SOUTHEAST;
+                case NORTH_WYE, NORTH_RIGHT:
+                    return TrackShape.NORTH_SOUTHWEST;
+                case SOUTHWEST_WYE, SOUTHWEST_RIGHT:
+                    return TrackShape.EAST_SOUTHWEST;
+                case EAST_WYE, EAST_RIGHT:
+                    return TrackShape.EAST_NORTHWEST;
+                case NORTHWEST_WYE, NORTHWEST_RIGHT:
+                    return TrackShape.SOUTH_NORTHWEST;
+                case SOUTH_WYE, SOUTH_RIGHT:
+                    return TrackShape.SOUTH_NORTHEAST;
+                case NORTHEAST_WYE, NORTHEAST_RIGHT:
+                    return TrackShape.WEST_NORTHEAST;
+                case WEST_WYE, WEST_RIGHT:
+                    return TrackShape.WEST_SOUTHEAST;
+                default:
+                    return null;
+            }
+        } else {
+            switch (this) {
+                case NORTH_RIGHT, SOUTH_RIGHT:
+                    return TrackShape.NORTH_SOUTH;
+                case NORTHEAST_RIGHT, SOUTHWEST_RIGHT:
+                    return TrackShape.NORTHEAST_SOUTHWEST;
+                case EAST_RIGHT, WEST_RIGHT:
+                    return TrackShape.EAST_WEST;
+                case NORTHWEST_RIGHT, SOUTHEAST_RIGHT:
+                    return TrackShape.NORTHWEST_SOUTHEAST;
+                case NORTH_LEFT, NORTH_WYE:
+                    return TrackShape.NORTH_SOUTHEAST;
+                case SOUTHWEST_LEFT, SOUTHWEST_WYE:
+                    return TrackShape.NORTH_SOUTHWEST;
+                case EAST_LEFT, EAST_WYE:
+                    return TrackShape.EAST_SOUTHWEST;
+                case NORTHWEST_LEFT, NORTHWEST_WYE:
+                    return TrackShape.EAST_NORTHWEST;
+                case SOUTH_LEFT, SOUTH_WYE:
+                    return TrackShape.SOUTH_NORTHWEST;
+                case NORTHEAST_LEFT, NORTHEAST_WYE:
+                    return TrackShape.SOUTH_NORTHEAST;
+                case WEST_LEFT, WEST_WYE:
+                    return TrackShape.WEST_NORTHEAST;
+                case SOUTHEAST_LEFT, SOUTHEAST_WYE:
+                    return TrackShape.WEST_SOUTHEAST;
+                default:
+                    return null;
+            }
+        }
+    }
+
     @Override
     public String asString() {
         return this.name;

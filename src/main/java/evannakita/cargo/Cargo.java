@@ -37,6 +37,7 @@ import evannakita.cargo.block.TrainWheelBlock;
 import evannakita.cargo.block.entity.JackBlockEntity;
 import evannakita.cargo.block.entity.RefineryBlockEntity;
 import evannakita.cargo.entity.BicycleEntity;
+import evannakita.cargo.entity.BogieEntity;
 import evannakita.cargo.recipe.RefiningRecipe;
 import evannakita.cargo.screen.RefineryScreenHandler;
 
@@ -76,6 +77,13 @@ public class Cargo implements ModInitializer {
 		new Item.Settings()
 	);
 	
+	// Bogie
+	public static final EntityType<BogieEntity> BOGIE = Registry.register(
+		Registries.ENTITY_TYPE,
+		new Identifier(MOD_ID, "bogie"),
+		FabricEntityTypeBuilder.<BogieEntity>create(SpawnGroup.MISC, BogieEntity::new).build()
+	);
+
 	// Bucket of Diesel
 	public static final Item DIESEL_BUCKET = new Item(
 		new Item.Settings()
@@ -155,7 +163,11 @@ public class Cargo implements ModInitializer {
 	);
 	
 	// Train Axle
-	public static final TrainAxleBlock TRAIN_AXLE = new TrainAxleBlock(
+	public static final Item TRAIN_AXLE = new Item(
+		new Item.Settings()
+	);
+
+	public static final TrainAxleBlock TRAIN_AXLE_BLOCK = new TrainAxleBlock(
 		FabricBlockSettings.of(Material.METAL)
 		.strength(2.0F, 2.0F)
 		.sounds(BlockSoundGroup.METAL)
@@ -240,9 +252,11 @@ public class Cargo implements ModInitializer {
 		Registry.register(Registries.BLOCK, new Identifier("cargo", "rubber_block"), RUBBER_BLOCK);
 		Registry.register(Registries.ITEM, new Identifier("cargo", "rubber_block"), new BlockItem(RUBBER_BLOCK, new FabricItemSettings()));
 
-		// Train Axle
-		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_axle"), TRAIN_AXLE);
-		Registry.register(Registries.ITEM, new Identifier("cargo", "train_axle"), new BlockItem(TRAIN_AXLE, new FabricItemSettings()));
+		// Train Axle (item)
+		Registry.register(Registries.ITEM, new Identifier("cargo", "train_axle"), TRAIN_AXLE);
+
+		// Train Axle (block)
+		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_axle_block"), TRAIN_AXLE_BLOCK);
 
 		// Train Junction
 		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_junction"), TRAIN_JUNCTION);

@@ -7,10 +7,10 @@ public enum TrackShape implements StringIdentifiable {
     EAST_WEST("east_west"),
     NORTHEAST_SOUTHWEST("northeast_southwest"),
     NORTHWEST_SOUTHEAST("northwest_southeast"),
-    ASCENDING_NORTH("ascending_north"),
-    ASCENDING_EAST("ascending_east"),
-    ASCENDING_SOUTH("ascending_south"),
-    ASCENDING_WEST("ascending_west"),
+    //ASCENDING_NORTH("ascending_north"),
+    //ASCENDING_EAST("ascending_east"),
+    //ASCENDING_SOUTH("ascending_south"),
+    //ASCENDING_WEST("ascending_west"),
     NORTH_SOUTHEAST("north_southeast"),
     NORTH_SOUTHWEST("north_southwest"),
     EAST_SOUTHWEST("east_southwest"),
@@ -35,15 +35,16 @@ public enum TrackShape implements StringIdentifiable {
     }
 
     public boolean isAscending() {
-        return this == ASCENDING_NORTH || this == ASCENDING_EAST || this == ASCENDING_SOUTH || this == ASCENDING_WEST;
+        //return this == ASCENDING_NORTH || this == ASCENDING_EAST || this == ASCENDING_SOUTH || this == ASCENDING_WEST;
+        return false;
     }
 
     public boolean isPointing(TrackDirection direction) {
         switch (direction) {
             case NORTH: return
                 this == NORTH_SOUTH ||
-                this == ASCENDING_NORTH ||
-                this == ASCENDING_SOUTH ||
+                //this == ASCENDING_NORTH ||
+                //this == ASCENDING_SOUTH ||
                 this == NORTH_SOUTHEAST ||
                 this == NORTH_SOUTHWEST;
             case NORTHEAST: return
@@ -52,8 +53,8 @@ public enum TrackShape implements StringIdentifiable {
                 this == WEST_NORTHEAST;
             case EAST: return
                 this == EAST_WEST ||
-                this == ASCENDING_EAST ||
-                this == ASCENDING_WEST ||
+                //this == ASCENDING_EAST ||
+                //this == ASCENDING_WEST ||
                 this == EAST_SOUTHWEST ||
                 this == EAST_NORTHWEST;
             case SOUTHEAST: return
@@ -62,8 +63,8 @@ public enum TrackShape implements StringIdentifiable {
                 this == WEST_SOUTHEAST;
             case SOUTH: return
                 this == NORTH_SOUTH ||
-                this == ASCENDING_NORTH ||
-                this == ASCENDING_SOUTH ||
+                //this == ASCENDING_NORTH ||
+                //this == ASCENDING_SOUTH ||
                 this == SOUTH_NORTHEAST ||
                 this == SOUTH_NORTHWEST;
             case SOUTHWEST: return
@@ -72,8 +73,8 @@ public enum TrackShape implements StringIdentifiable {
                 this == EAST_SOUTHWEST;
             case WEST: return
                 this == EAST_WEST ||
-                this == ASCENDING_EAST ||
-                this == ASCENDING_WEST ||
+                //this == ASCENDING_EAST ||
+                //this == ASCENDING_WEST ||
                 this == WEST_NORTHEAST ||
                 this == WEST_SOUTHEAST;
             case NORTHWEST: return

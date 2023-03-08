@@ -24,10 +24,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public abstract class AbstractTrackBlock extends Block implements Waterloggable {
+    protected static final VoxelShape FLAT_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
+    protected static final VoxelShape ASCENDING_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 8.0, 16.0);
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final EnumProperty<TrackShape> SHAPE = EnumProperty.of("shape", TrackShape.class);
-    protected static final VoxelShape FLAT_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
-    protected static final VoxelShape ASCENDING_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
 
     public static boolean isTrack(World world, BlockPos pos) {
         return AbstractTrackBlock.isTrack(world.getBlockState(pos));
@@ -110,18 +110,18 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
         switch (rotation) {
             case CLOCKWISE_180: {
                 switch (state.get(SHAPE)) {
-                    case ASCENDING_NORTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
-                    }
-                    case ASCENDING_EAST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
-                    }
-                    case ASCENDING_SOUTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
-                    }
-                    case ASCENDING_WEST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
-                    }
+                    // case ASCENDING_NORTH: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
+                    // }
+                    // case ASCENDING_EAST: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
+                    // }
+                    // case ASCENDING_SOUTH: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
+                    // }
+                    // case ASCENDING_WEST: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
+                    // }
                     case NORTH_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHWEST);
                     }
@@ -164,18 +164,18 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
                     case NORTHWEST_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     }
-                    case ASCENDING_NORTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
-                    }
-                    case ASCENDING_EAST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
-                    }
-                    case ASCENDING_SOUTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
-                    }
-                    case ASCENDING_WEST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
-                    }
+                    // case ASCENDING_NORTH: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
+                    // }
+                    // case ASCENDING_EAST: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
+                    // }
+                    // case ASCENDING_SOUTH: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
+                    // }
+                    // case ASCENDING_WEST: {
+                    //     return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
+                    // }
                     case NORTH_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.WEST_NORTHEAST);
                     }
@@ -216,18 +216,18 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
                     case NORTHWEST_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     }
-                    case ASCENDING_EAST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
-                    }
-                    case ASCENDING_WEST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
-                    }
-                    case ASCENDING_NORTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
-                    }
-                    case ASCENDING_SOUTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
-                    }
+                    //case ASCENDING_EAST: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
+                    //}
+                    //case ASCENDING_WEST: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
+                    //}
+                    //case ASCENDING_NORTH: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
+                    //}
+                    //case ASCENDING_SOUTH: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
+                    //}
                     case NORTH_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.EAST_SOUTHWEST);
                     }
@@ -271,12 +271,12 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
                     case NORTHWEST_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     }
-                    case ASCENDING_NORTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
-                    }
-                    case ASCENDING_SOUTH: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
-                    }
+                    //case ASCENDING_NORTH: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_SOUTH);
+                    //}
+                    //case ASCENDING_SOUTH: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_NORTH);
+                    //}
                     case NORTH_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHEAST);
                     }
@@ -313,12 +313,12 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
                     case NORTHWEST_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     }
-                    case ASCENDING_EAST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
-                    }
-                    case ASCENDING_WEST: {
-                        return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
-                    }
+                    //case ASCENDING_EAST: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_WEST);
+                    //}
+                    //case ASCENDING_WEST: {
+                    //    return (BlockState)state.with(SHAPE, TrackShape.ASCENDING_EAST);
+                    //}
                     case NORTH_SOUTHEAST: {
                         return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHWEST);
                     }
