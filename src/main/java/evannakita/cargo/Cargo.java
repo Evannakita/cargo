@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
@@ -25,19 +26,24 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import evannakita.cargo.block.BicycleFrameBlock;
+import evannakita.cargo.block.HullBlock;
 import evannakita.cargo.block.JackBlock;
 import evannakita.cargo.block.RedstoneBatteryBlock;
 import evannakita.cargo.block.RefineryBlock;
-import evannakita.cargo.block.TrainAxleBlock;
+import evannakita.cargo.block.TrackWithWheelsBlock;
+import evannakita.cargo.block.TrackWithCouplerBlock;
+import evannakita.cargo.block.TrackWithUndercarriageBlock;
 import evannakita.cargo.block.TrainJunctionBlock;
+import evannakita.cargo.block.TrainStructureBlock;
 import evannakita.cargo.block.TrainSwitchBlock;
 import evannakita.cargo.block.TrainTrackBlock;
-import evannakita.cargo.block.TrainWheelBlock;
 import evannakita.cargo.block.entity.JackBlockEntity;
 import evannakita.cargo.block.entity.RefineryBlockEntity;
 import evannakita.cargo.entity.BicycleEntity;
 import evannakita.cargo.entity.BogieEntity;
+import evannakita.cargo.item.BicycleItem;
+import evannakita.cargo.item.HullItem;
+import evannakita.cargo.item.TrainTracksItem;
 import evannakita.cargo.recipe.RefiningRecipe;
 import evannakita.cargo.screen.RefineryScreenHandler;
 
@@ -59,12 +65,9 @@ public class Cargo implements ModInitializer {
 		FabricEntityTypeBuilder.<BicycleEntity>create(SpawnGroup.MISC, BicycleEntity::new).build()
 	);
 
-	// Bicycle Frame
-	public static final BicycleFrameBlock BICYCLE_FRAME = new BicycleFrameBlock(
-		FabricBlockSettings.of(Material.METAL)
-		.strength(3.5F,3.5F)
-		.sounds(BlockSoundGroup.METAL)
-		.nonOpaque()
+	// Bicycle
+	public static final BicycleItem BICYCLE_ITEM = new BicycleItem(
+		new Item.Settings()
 	);
 
 	// Bicycle Wheel
@@ -81,7 +84,14 @@ public class Cargo implements ModInitializer {
 	public static final EntityType<BogieEntity> BOGIE = Registry.register(
 		Registries.ENTITY_TYPE,
 		new Identifier(MOD_ID, "bogie"),
-		FabricEntityTypeBuilder.<BogieEntity>create(SpawnGroup.MISC, BogieEntity::new).build()
+		FabricEntityTypeBuilder.<BogieEntity>create(SpawnGroup.MISC, BogieEntity::new).dimensions(EntityDimensions.fixed(1.5f, 0.875f)).build()
+	);
+
+	// Boxcar Hull
+	public static final HullBlock BOXCAR_HULL = new HullBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
 	);
 
 	// Bucket of Diesel
@@ -162,16 +172,9 @@ public class Cargo implements ModInitializer {
 		.sounds(BlockSoundGroup.FROGLIGHT)
 	);
 	
-	// Train Axle
-	public static final Item TRAIN_AXLE = new Item(
+	// Train Coupler
+	public static final Item TRAIN_COUPLER = new Item(
 		new Item.Settings()
-	);
-
-	public static final TrainAxleBlock TRAIN_AXLE_BLOCK = new TrainAxleBlock(
-		FabricBlockSettings.of(Material.METAL)
-		.strength(2.0F, 2.0F)
-		.sounds(BlockSoundGroup.METAL)
-		.nonOpaque()
 	);
 
 	// Train Junction
@@ -180,6 +183,14 @@ public class Cargo implements ModInitializer {
 		.strength(2.0F,2.0F)
 		.sounds(BlockSoundGroup.WOOD)
 		.nonOpaque()
+	);
+
+	// Train Structure Block
+	public static final TrainStructureBlock TRAIN_STRUCTURE_BLOCK = new TrainStructureBlock(
+		FabricBlockSettings.of(Material.BARRIER)
+		.strength(2.0F,2.0F)
+		.nonOpaque()
+		//.noCollision()
 	);
 
 	// Train Switch
@@ -198,12 +209,38 @@ public class Cargo implements ModInitializer {
 		.nonOpaque()
 	);
 
-	// Train Wheel
-	public static final TrainWheelBlock TRAIN_WHEEL = new TrainWheelBlock(
+	// Train Track With Coupler
+	public static final TrackWithCouplerBlock TRACK_WITH_COUPLER = new TrackWithCouplerBlock(
 		FabricBlockSettings.of(Material.METAL)
 		.strength(2.0F, 2.0F)
 		.sounds(BlockSoundGroup.METAL)
 		.nonOpaque()
+	);
+
+	// Train Track With Undercarriage
+	public static final TrackWithUndercarriageBlock TRACK_WITH_UNDERCARRIAGE = new TrackWithUndercarriageBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(2.0F, 2.0F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
+	);
+
+	// Train Track With Wheels
+	public static final TrackWithWheelsBlock TRACK_WITH_WHEELS = new TrackWithWheelsBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(2.0F, 2.0F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
+	);
+
+	// Train Undercariage
+	public static final Item TRAIN_UNDERCARRIAGE = new Item(
+		new Item.Settings()
+	);
+
+	// Train Wheels
+	public static final Item TRAIN_WHEELS = new Item(
+		new Item.Settings()
 	);
 
 	@Override
@@ -215,14 +252,17 @@ public class Cargo implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier("cargo", "asphalt"), new BlockItem(ASPHALT, new FabricItemSettings()));
 
 		// Bicycle Frame
-		Registry.register(Registries.BLOCK, new Identifier("cargo", "bicycle_frame"), BICYCLE_FRAME);
-		Registry.register(Registries.ITEM, new Identifier("cargo", "bicycle_frame"), new BlockItem(BICYCLE_FRAME, new FabricItemSettings()));
+		Registry.register(Registries.ITEM, new Identifier("cargo", "bicycle_item"), BICYCLE_ITEM);
 
 		// Bicycle Wheel
 		Registry.register(Registries.ITEM, new Identifier("cargo", "bicycle_wheel"), BICYCLE_WHEEL);
 
 		// Bitumen
 		Registry.register(Registries.ITEM, new Identifier("cargo", "bitumen"), BITUMEN);
+
+		// Boxcar Hull
+		Registry.register(Registries.BLOCK, new Identifier("cargo", "boxcar_hull"), BOXCAR_HULL);
+		Registry.register(Registries.ITEM, new Identifier("cargo", "boxcar_hull"), new HullItem(BOXCAR_HULL, new FabricItemSettings()));
 
 		// Bucket of Diesel
 		Registry.register(Registries.ITEM, new Identifier("cargo", "diesel_bucket"), DIESEL_BUCKET);
@@ -252,11 +292,20 @@ public class Cargo implements ModInitializer {
 		Registry.register(Registries.BLOCK, new Identifier("cargo", "rubber_block"), RUBBER_BLOCK);
 		Registry.register(Registries.ITEM, new Identifier("cargo", "rubber_block"), new BlockItem(RUBBER_BLOCK, new FabricItemSettings()));
 
-		// Train Axle (item)
-		Registry.register(Registries.ITEM, new Identifier("cargo", "train_axle"), TRAIN_AXLE);
+		// Train Axle
+		Registry.register(Registries.ITEM, new Identifier("cargo", "train_wheels"), TRAIN_WHEELS);
 
-		// Train Axle (block)
-		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_axle_block"), TRAIN_AXLE_BLOCK);
+		// Train Coupler
+		Registry.register(Registries.ITEM, new Identifier("cargo", "train_coupler"), TRAIN_COUPLER);
+
+		// Track With Axle
+		Registry.register(Registries.BLOCK, new Identifier("cargo", "track_with_wheels"), TRACK_WITH_WHEELS);
+
+		// Track With Coupler
+		Registry.register(Registries.BLOCK, new Identifier("cargo", "track_with_coupler"), TRACK_WITH_COUPLER);
+
+		// Track With Undercarriage
+		Registry.register(Registries.BLOCK, new Identifier("cargo", "track_with_undercarriage"), TRACK_WITH_UNDERCARRIAGE);
 
 		// Train Junction
 		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_junction"), TRAIN_JUNCTION);
@@ -266,13 +315,15 @@ public class Cargo implements ModInitializer {
 		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_switch"), TRAIN_SWITCH);
 		Registry.register(Registries.ITEM, new Identifier("cargo", "train_switch"), new BlockItem(TRAIN_SWITCH, new FabricItemSettings()));
 
+		// Train Structure Block
+		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_structure_block"), TRAIN_STRUCTURE_BLOCK);
+
 		// Train Tracks
 		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_tracks"), TRAIN_TRACKS);
-		Registry.register(Registries.ITEM, new Identifier("cargo", "train_tracks"), new BlockItem(TRAIN_TRACKS, new FabricItemSettings()));
+		Registry.register(Registries.ITEM, new Identifier("cargo", "train_tracks"), new TrainTracksItem(TRAIN_TRACKS, new FabricItemSettings()));
 
-		// Train Wheel
-		Registry.register(Registries.BLOCK, new Identifier("cargo", "train_wheel"), TRAIN_WHEEL);
-		Registry.register(Registries.ITEM, new Identifier("cargo", "train_wheel"), new BlockItem(TRAIN_WHEEL, new FabricItemSettings()));
+		// Train Undercarriage
+		Registry.register(Registries.ITEM, new Identifier("cargo", "train_undercarriage"), TRAIN_UNDERCARRIAGE);
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(content -> {
 			content.addAfter(Items.HONEY_BLOCK,
@@ -288,8 +339,10 @@ public class Cargo implements ModInitializer {
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> {
 			content.addAfter(Items.MINECART,
-				TRAIN_AXLE,
-				TRAIN_WHEEL
+				TRAIN_WHEELS,
+				TRAIN_UNDERCARRIAGE,
+				TRAIN_COUPLER,
+				BOXCAR_HULL
 			);
 			content.addAfter(Items.ACTIVATOR_RAIL,
 				TRAIN_TRACKS,

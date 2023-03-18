@@ -25,25 +25,83 @@ public class TrainTrackBlock extends AbstractTrackBlock {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(Cargo.TRAIN_AXLE)) {
+        if (itemStack.isOf(Cargo.TRAIN_WHEELS)) {
             if (!world.isClient) {
                 switch (state.get(this.getTrackShapeProperty())) {
+                    default: {
+                        return ActionResult.PASS;
+                    }
                     case NORTH_SOUTH: {
-                        world.setBlockState(pos, (BlockState)Cargo.TRAIN_AXLE_BLOCK.getDefaultState().with(TrainAxleBlock.FACING, Direction.NORTH), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
-                        world.playSound(null, pos, SoundEvents.BLOCK_DEEPSLATE_PLACE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                        BlockState newState = Cargo.TRACK_WITH_WHEELS.getDefaultState().with(TrackWithWheelsBlock.FACING, Direction.NORTH);
+                        world.setBlockState(pos, newState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+                        ((TrackWithUndercarriageBlock)world.getBlockState(pos).getBlock()).updateStructureBlocks(newState, world, pos);
+                        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 0.75f, 1.0f);
                         if (!player.isCreative()) {
                             itemStack.decrement(1);
                         }
                     }
                     case EAST_WEST: {
-                        world.setBlockState(pos, (BlockState)Cargo.TRAIN_AXLE_BLOCK.getDefaultState().with(TrainAxleBlock.FACING, Direction.EAST), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
-                        world.playSound(null, pos, SoundEvents.BLOCK_DEEPSLATE_PLACE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                        BlockState newState = Cargo.TRACK_WITH_WHEELS.getDefaultState().with(TrackWithWheelsBlock.FACING, Direction.EAST);
+                        world.setBlockState(pos, newState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+                        ((TrackWithUndercarriageBlock)world.getBlockState(pos).getBlock()).updateStructureBlocks(newState, world, pos);
+                        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 0.75f, 1.0f);
                         if (!player.isCreative()) {
                             itemStack.decrement(1);
                         }
                     }
+                }
+            }
+            return ActionResult.success(world.isClient);
+        }
+        if (itemStack.isOf(Cargo.TRAIN_COUPLER)) {
+            if (!world.isClient) {
+                switch (state.get(this.getTrackShapeProperty())) {
                     default: {
                         return ActionResult.PASS;
+                    }
+                    case NORTH_SOUTH: {
+                        BlockState newState = Cargo.TRACK_WITH_COUPLER.getDefaultState().with(TrackWithCouplerBlock.FACING, Direction.NORTH);
+                        world.setBlockState(pos, newState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+                        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 0.75f, 1.0f);
+                        if (!player.isCreative()) {
+                            itemStack.decrement(1);
+                        }
+                    }
+                    case EAST_WEST: {
+                        BlockState newState = Cargo.TRACK_WITH_COUPLER.getDefaultState().with(TrackWithCouplerBlock.FACING, Direction.EAST);
+                        world.setBlockState(pos, newState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+                        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 0.75f, 1.0f);
+                        if (!player.isCreative()) {
+                            itemStack.decrement(1);
+                        }
+                    }
+                }
+            }
+            return ActionResult.success(world.isClient);
+        }
+        if (itemStack.isOf(Cargo.TRAIN_UNDERCARRIAGE)) {
+            if (!world.isClient) {
+                switch (state.get(this.getTrackShapeProperty())) {
+                    default: {
+                        return ActionResult.PASS;
+                    }
+                    case NORTH_SOUTH: {
+                        BlockState newState = Cargo.TRACK_WITH_UNDERCARRIAGE.getDefaultState().with(TrackWithUndercarriageBlock.FACING, Direction.NORTH);
+                        world.setBlockState(pos, newState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+                        ((TrackWithUndercarriageBlock)world.getBlockState(pos).getBlock()).updateStructureBlocks(newState, world, pos);
+                        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 0.75f, 1.0f);
+                        if (!player.isCreative()) {
+                            itemStack.decrement(1);
+                        }
+                    }
+                    case EAST_WEST: {
+                        BlockState newState = Cargo.TRACK_WITH_UNDERCARRIAGE.getDefaultState().with(TrackWithUndercarriageBlock.FACING, Direction.EAST);
+                        world.setBlockState(pos, newState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+                        ((TrackWithUndercarriageBlock)world.getBlockState(pos).getBlock()).updateStructureBlocks(newState, world, pos);
+                        world.playSound(null, pos, SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 0.75f, 1.0f);
+                        if (!player.isCreative()) {
+                            itemStack.decrement(1);
+                        }
                     }
                 }
             }

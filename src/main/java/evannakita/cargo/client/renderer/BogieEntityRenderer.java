@@ -22,7 +22,7 @@ public class BogieEntityRenderer extends EntityRenderer<BogieEntity>{
 
     public BogieEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
-        this.shadowRadius = 0.7f;
+        this.shadowRadius = 1.0f;
         this.model = new BogieEntityModel(context.getPart(CargoClient.BOGIE_LAYER));
     }
 
@@ -58,7 +58,7 @@ public class BogieEntityRenderer extends EntityRenderer<BogieEntity>{
                 o = (float)(Math.atan(vec3d4.y) * 73.0);
             }
         }
-        matrixStack.translate(0.0f, 0.375f, 0.0f);
+        matrixStack.translate(0.0f, 1.4375f, 0.0f);
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f - f));
         matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-o));
         float p = (float)((BogieEntity)bogieEntity).getDamageWobbleTicks() - g;

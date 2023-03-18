@@ -1,0 +1,20 @@
+{
+    "variants": {
+      "facing=north": {
+        "model": "cargo:block/boxcar_hull",
+        "y": 0
+      },
+      "facing=east": {
+        "model": "cargo:block/boxcar_hull",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "cargo:block/boxcar_hull",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "cargo:block/boxcar_hull",
+        "y": 270
+      }
+    }
+  }

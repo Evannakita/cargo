@@ -20,6 +20,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -27,6 +28,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
@@ -124,7 +126,10 @@ public class BogieEntity extends Entity {
         if (bl || this.getDamageWobbleStrength() > 40.0f) {
             this.removeAllPassengers();
             if (!bl || this.hasCustomName()) {
-                this.discard();
+                this.kill();
+                if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+                    this.dropStack(new ItemStack(Cargo.TRAIN_WHEELS, 2));
+                }        
             } else {
                 this.discard();
             }
@@ -166,10 +171,6 @@ public class BogieEntity extends Entity {
     public void tick() {
         double m;
         BlockPos blockPos;
-        BlockState blockState;
-        int k;
-        int j;
-        int i;
         if (this.getDamageWobbleTicks() > 0) {
             this.setDamageWobbleTicks(this.getDamageWobbleTicks() - 1);
         }
@@ -199,10 +200,16 @@ public class BogieEntity extends Entity {
             double d = this.isTouchingWater() ? -0.005 : -0.04;
             this.setVelocity(this.getVelocity().add(0.0, d, 0.0));
         }
-        if (this.world.getBlockState(new BlockPos(i = MathHelper.floor(this.getX()), (j = MathHelper.floor(this.getY())) - 1, k = MathHelper.floor(this.getZ()))).getBlock() instanceof AbstractTrackBlock) {
-            //--j;
+        int k = MathHelper.floor(this.getZ());
+        int j = MathHelper.floor(this.getY());
+        int i = MathHelper.floor(this.getX());
+        BlockState blockState = this.world.getBlockState(blockPos = new BlockPos(i, j - 1, k));
+        if (blockState.getBlock() instanceof AbstractTrackBlock) {
+            --j;
+        } else {
+            blockState = this.world.getBlockState(blockPos = new BlockPos(i, j, k));
         }
-        if (AbstractTrackBlock.isTrack(blockState = this.world.getBlockState(blockPos = new BlockPos(i, j, k)))) {
+        if (AbstractTrackBlock.isTrack(blockState)) {
             this.moveOnTrack(blockPos, blockState);
         } else {
             this.moveOffTrack();
@@ -266,6 +273,7 @@ public class BogieEntity extends Entity {
         Vec3d vec3d2 = this.getVelocity();
         TrackShape trackShape = state.get(((AbstractTrackBlock)state.getBlock()).getTrackShapeProperty());
         Pair<Vec3i, Vec3i> pair = BogieEntity.getAdjacentTrackPositionsByShape(trackShape);
+        if (pair == null) return;
         Vec3i vec3i = pair.getFirst();
         Vec3i vec3i2 = pair.getSecond();
         double h = vec3i2.getX() - vec3i.getX();
@@ -347,20 +355,23 @@ public class BogieEntity extends Entity {
 
     @Nullable
     public Vec3d snapPositionToTrackWithOffset(double x, double y, double z, double offset) {
-        BlockState blockState;
-        int k;
-        int j;
+        int k = MathHelper.floor(z);
+        int j = MathHelper.floor(y);
         int i = MathHelper.floor(x);
-        if (this.world.getBlockState(new BlockPos(i, (j = MathHelper.floor(y)) - 1, k = MathHelper.floor(z))).getBlock() instanceof AbstractTrackBlock) {
-            //--j;
+        BlockState blockState = this.world.getBlockState(new BlockPos(i, j - 1, k));
+        if (blockState.getBlock() instanceof AbstractTrackBlock) {
+            --j;
+        } else {
+            blockState = this.world.getBlockState(new BlockPos(i, j, k));
         }
-        if (AbstractTrackBlock.isTrack(blockState = this.world.getBlockState(new BlockPos(i, j, k)))) {
+        if (AbstractTrackBlock.isTrack(blockState)) {
             TrackShape trackShape = blockState.get(((AbstractTrackBlock)blockState.getBlock()).getTrackShapeProperty());
             y = j;
             if (trackShape.isAscending()) {
                 y = j + 1;
             }
             Pair<Vec3i, Vec3i> pair = BogieEntity.getAdjacentTrackPositionsByShape(trackShape);
+            if (pair == null) return null;
             Vec3i vec3i = pair.getFirst();
             Vec3i vec3i2 = pair.getSecond();
             double d = vec3i2.getX() - vec3i.getX();
@@ -378,17 +389,20 @@ public class BogieEntity extends Entity {
 
     @Nullable
     public Vec3d snapPositionToTrack(double x, double y, double z) {
-        BlockState blockState;
-        int k;
-        int j;
+        int k = MathHelper.floor(z);
+        int j = MathHelper.floor(y);
         int i = MathHelper.floor(x);
-        if (this.world.getBlockState(new BlockPos(i, (j = MathHelper.floor(y)) - 1, k = MathHelper.floor(z))).getBlock() instanceof AbstractTrackBlock) {
-            //--j;
+        BlockState blockState = this.world.getBlockState(new BlockPos(i, j - 1, k));
+        if (blockState.getBlock() instanceof AbstractTrackBlock) {
+            --j;
+        } else {
+            blockState = this.world.getBlockState(new BlockPos(i, j, k));
         }
-        if (AbstractTrackBlock.isTrack(blockState = this.world.getBlockState(new BlockPos(i, j, k)))) {
+        if (AbstractTrackBlock.isTrack(blockState)) {
             double p;
             TrackShape trackShape = blockState.get(((AbstractTrackBlock)blockState.getBlock()).getTrackShapeProperty());
             Pair<Vec3i, Vec3i> pair = BogieEntity.getAdjacentTrackPositionsByShape(trackShape);
+            if (pair == null) return null;
             Vec3i vec3i = pair.getFirst();
             Vec3i vec3i2 = pair.getSecond();
             double d = (double)i + 0.5 + (double)vec3i.getX() * 0.5;

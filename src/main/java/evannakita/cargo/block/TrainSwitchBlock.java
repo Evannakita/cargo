@@ -9,6 +9,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
@@ -18,11 +19,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class TrainSwitchBlock extends AbstractTrackBlock {
-    public static final EnumProperty<SwitchShape> SHAPE = EnumProperty.of("shape", SwitchShape.class);
+    public static final EnumProperty<SwitchShape> SWITCH_SHAPE = EnumProperty.of("shape", SwitchShape.class);
+    public static final EnumProperty<TrackShape> TRACK_SHAPE = EnumProperty.of("track_shape", TrackShape.class);
+    public static final BooleanProperty POWERED = BooleanProperty.of("powered");
 
     public TrainSwitchBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(SHAPE, SwitchShape.NORTH_WYE)).with(WATERLOGGED, false));
+        this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(SWITCH_SHAPE, SwitchShape.NORTH_WYE)).with(TRACK_SHAPE, TrackShape.NORTH_SOUTHEAST).with(POWERED, false).with(WATERLOGGED, false));
     }
 
     @Override
@@ -69,12 +72,12 @@ public class TrainSwitchBlock extends AbstractTrackBlock {
 
     @Override
     public Property<TrackShape> getTrackShapeProperty() {
-        return null;
+        return TRACK_SHAPE;
     }
 
     @Override
     public Property<SwitchShape> getSwitchShapeProperty() {
-        return SHAPE;
+        return SWITCH_SHAPE;
     }
 
     @Override
@@ -84,6 +87,6 @@ public class TrainSwitchBlock extends AbstractTrackBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SHAPE, WATERLOGGED);
+        builder.add(SWITCH_SHAPE, TRACK_SHAPE, POWERED, WATERLOGGED);
     }
 }

@@ -57,6 +57,51 @@
       "shape=west_southeast": {
         "model": "cargo:block/train_tracks_right",
         "y": 270
+      },
+      "shape=north_top": {
+        "model": "cargo:block/train_tracks_sloped_upper"
+      },
+      "shape=north_middle": {
+        "model": "cargo:block/train_tracks_sloped_middle"
+      },
+      "shape=north_bottom": {
+        "model": "cargo:block/train_tracks_sloped_lower"
+      },
+      "shape=east_top": {
+        "model": "cargo:block/train_tracks_sloped_upper",
+        "y": 90
+      },
+      "shape=east_middle": {
+        "model": "cargo:block/train_tracks_sloped_middle",
+        "y": 90
+      },
+      "shape=east_bottom": {
+        "model": "cargo:block/train_tracks_sloped_lower",
+        "y": 90
+      },
+      "shape=south_top": {
+        "model": "cargo:block/train_tracks_sloped_upper",
+        "y": 180
+      },
+      "shape=south_middle": {
+        "model": "cargo:block/train_tracks_sloped_middle",
+        "y": 180
+      },
+      "shape=south_bottom": {
+        "model": "cargo:block/train_tracks_sloped_lower",
+        "y": 180
+      },
+      "shape=west_top": {
+        "model": "cargo:block/train_tracks_sloped_upper",
+        "y": 270
+      },
+      "shape=west_middle": {
+        "model": "cargo:block/train_tracks_sloped_middle",
+        "y": 270
+      },
+      "shape=west_bottom": {
+        "model": "cargo:block/train_tracks_sloped_lower",
+        "y": 270
       }
     }
   }

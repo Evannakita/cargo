@@ -11,7 +11,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "cargo:train_axle"
+            "name": "cargo:train_undercarriage"
           }
         ],
         "rolls": 1.0

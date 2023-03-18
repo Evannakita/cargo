@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 public class TrackPlacementHelper {
     protected final World world;
     protected final BlockPos pos;
-    protected BlockState  state;
+    protected BlockState state;
     protected final AbstractTrackBlock block;
     protected final List<BlockPos> neighbors = Lists.newArrayList();
 
@@ -56,12 +56,12 @@ public class TrackPlacementHelper {
     private void computeNeighbors(TrackShape shape) {
         this.neighbors.clear();
         switch (shape) {
-            case NORTH_SOUTH: {
+            case NORTH_SOUTH, NORTH_MIDDLE, NORTH_BOTTOM, SOUTH_MIDDLE, SOUTH_BOTTOM: {
                 this.neighbors.add(this.pos.north());
                 this.neighbors.add(this.pos.south());
                 break;
             }
-            case EAST_WEST: {
+            case EAST_WEST, EAST_MIDDLE, EAST_BOTTOM, WEST_MIDDLE, WEST_BOTTOM: {
                 this.neighbors.add(this.pos.west());
                 this.neighbors.add(this.pos.east());
                 break;
@@ -76,26 +76,6 @@ public class TrackPlacementHelper {
                 this.neighbors.add(this.pos.south().east());
                 break;
             }
-            // case ASCENDING_EAST: {
-            //     this.neighbors.add(this.pos.west());
-            //     this.neighbors.add(this.pos.east().up());
-            //     break;
-            // }
-            // case ASCENDING_WEST: {
-            //     this.neighbors.add(this.pos.west().up());
-            //     this.neighbors.add(this.pos.east());
-            //     break;
-            // }
-            // case ASCENDING_NORTH: {
-            //     this.neighbors.add(this.pos.north().up());
-            //     this.neighbors.add(this.pos.south());
-            //     break;
-            // }
-            // case ASCENDING_SOUTH: {
-            //     this.neighbors.add(this.pos.north());
-            //     this.neighbors.add(this.pos.south().up());
-            //     break;
-            // }
             case NORTH_SOUTHEAST: {
                 this.neighbors.add(this.pos.north());
                 this.neighbors.add(this.pos.south().east());
@@ -132,6 +112,26 @@ public class TrackPlacementHelper {
             case WEST_SOUTHEAST: {
                 this.neighbors.add(this.pos.north());
                 this.neighbors.add(this.pos.south().east());
+                break;
+            }
+            case NORTH_TOP: {
+                this.neighbors.add(this.pos.north().up());
+                this.neighbors.add(this.pos.south());
+                break;
+            }
+            case EAST_TOP: {
+                this.neighbors.add(this.pos.east().up());
+                this.neighbors.add(this.pos.west());
+                break;
+            }
+            case SOUTH_TOP: {
+                this.neighbors.add(this.pos.north());
+                this.neighbors.add(this.pos.south().up());
+                break;
+            }
+            case WEST_TOP: {
+                this.neighbors.add(this.pos.east());
+                this.neighbors.add(this.pos.west().up());
                 break;
             }
         }
@@ -491,22 +491,50 @@ public class TrackPlacementHelper {
         } else {
             world.playSound(null, pos, SoundEvents.BLOCK_LADDER_STEP, SoundCategory.BLOCKS, 0.5f, 1.0f);
         }
-        // if (trackShape2 == TrackShape.NORTH_SOUTH) {
-        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.north().up())) {
-        //         trackShape2 = TrackShape.ASCENDING_NORTH;
-        //     }
-        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.south().up())) {
-        //         trackShape2 = TrackShape.ASCENDING_SOUTH;
-        //     }
-        // }
-        // if (trackShape2 == TrackShape.EAST_WEST) {
-        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.east().up())) {
-        //         trackShape2 = TrackShape.ASCENDING_EAST;
-        //     }
-        //     if (AbstractTrackBlock.isTrack(this.world, this.pos.west().up())) {
-        //         trackShape2 = TrackShape.ASCENDING_WEST;
-        //     }
-        // }
+        if (trackShape2 == TrackShape.NORTH_SOUTH) {
+            if (AbstractTrackBlock.isTrack(this.world, this.pos.north())) {
+                TrackShape northShape = this.world.getBlockState(this.pos.north()).get(this.block.getTrackShapeProperty());
+                if (northShape == TrackShape.NORTH_TOP) {
+                    trackShape2 = TrackShape.NORTH_MIDDLE;
+                } else if (northShape == TrackShape.NORTH_MIDDLE) {
+                    trackShape2 = TrackShape.NORTH_BOTTOM;
+                }
+            } else if (AbstractTrackBlock.isTrack(this.world, this.pos.north().up())) {
+                trackShape2 = TrackShape.NORTH_TOP;
+            }
+            if (AbstractTrackBlock.isTrack(this.world, this.pos.south())) {
+                TrackShape southShape = this.world.getBlockState(this.pos.south()).get(this.block.getTrackShapeProperty());
+                if (southShape == TrackShape.SOUTH_TOP) {
+                    trackShape2 = TrackShape.SOUTH_MIDDLE;
+                } else if (southShape == TrackShape.SOUTH_MIDDLE) {
+                    trackShape2 = TrackShape.SOUTH_BOTTOM;
+                }    
+            } else if (AbstractTrackBlock.isTrack(this.world, this.pos.south().up())) {
+                trackShape2 = TrackShape.SOUTH_TOP;
+            }
+        }
+        if (trackShape2 == TrackShape.EAST_WEST) {
+            if (AbstractTrackBlock.isTrack(this.world, this.pos.east())) {
+                TrackShape eastShape = this.world.getBlockState(this.pos.east()).get(this.block.getTrackShapeProperty());
+                if (eastShape == TrackShape.EAST_TOP) {
+                    trackShape2 = TrackShape.EAST_MIDDLE;
+                } else if (eastShape == TrackShape.EAST_MIDDLE) {
+                    trackShape2 = TrackShape.EAST_BOTTOM;
+                }
+            } else if (AbstractTrackBlock.isTrack(this.world, this.pos.east().up())) {
+                trackShape2 = TrackShape.EAST_TOP;
+            }
+            if (AbstractTrackBlock.isTrack(this.world, this.pos.west())) {
+                TrackShape westShape = this.world.getBlockState(this.pos.west()).get(this.block.getTrackShapeProperty());
+                if (westShape == TrackShape.WEST_TOP) {
+                    trackShape2 = TrackShape.WEST_MIDDLE;
+                } else if (westShape == TrackShape.WEST_MIDDLE) {
+                    trackShape2 = TrackShape.WEST_BOTTOM;
+                }    
+            } else if (AbstractTrackBlock.isTrack(this.world, this.pos.west().up())) {
+                trackShape2 = TrackShape.WEST_TOP;
+            }
+        }
         this.computeNeighbors(trackShape2);
         this.state = (BlockState)this.state.with(this.block.getTrackShapeProperty(), trackShape2);
         if (forceUpdate || this.world.getBlockState(this.pos) != this.state) {

@@ -1,0 +1,6 @@
+{
+    "parent": "cargo:block/hull",
+    "textures": {
+        "all": "minecraft:block/iron_block"
+    }
+}

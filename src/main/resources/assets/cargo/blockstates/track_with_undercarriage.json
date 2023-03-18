@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "cargo:block/track_with_undercarriage",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "cargo:block/track_with_undercarriage",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "cargo:block/track_with_undercarriage",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "cargo:block/track_with_undercarriage",
+      "y": 270
+    }
+  }
+}

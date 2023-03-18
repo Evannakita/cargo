@@ -1,0 +1,52 @@
+{
+    "variants": {
+      "facing=north,connections=0": {
+        "model": "cargo:block/track_with_wheels",
+        "y": 0
+      },
+      "facing=east,connections=0": {
+        "model": "cargo:block/track_with_wheels",
+        "y": 90
+      },
+      "facing=south,connections=0": {
+        "model": "cargo:block/track_with_wheels",
+        "y": 180
+      },
+      "facing=west,connections=0": {
+        "model": "cargo:block/track_with_wheels",
+        "y": 270
+      },
+      "facing=north,connections=1": {
+        "model": "cargo:block/track_with_wheels_connected",
+        "y": 0
+      },
+      "facing=east,connections=1": {
+        "model": "cargo:block/track_with_wheels_connected",
+        "y": 90
+      },
+      "facing=south,connections=1": {
+        "model": "cargo:block/track_with_wheels_connected",
+        "y": 180
+      },
+      "facing=west,connections=1": {
+        "model": "cargo:block/track_with_wheels_connected",
+        "y": 270
+      },
+      "facing=north,connections=2": {
+        "model": "cargo:block/track_with_wheels_middle",
+        "y": 0
+      },
+      "facing=east,connections=2": {
+        "model": "cargo:block/track_with_wheels_middle",
+        "y": 90
+      },
+      "facing=south,connections=2": {
+        "model": "cargo:block/track_with_wheels_middle",
+        "y": 180
+      },
+      "facing=west,connections=2": {
+        "model": "cargo:block/track_with_wheels_middle",
+        "y": 270
+      }
+    }
+  }
