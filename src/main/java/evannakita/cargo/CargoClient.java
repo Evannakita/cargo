@@ -2,8 +2,10 @@ package evannakita.cargo;
 
 import evannakita.cargo.client.model.BicycleEntityModel;
 import evannakita.cargo.client.model.BogieEntityModel;
+import evannakita.cargo.client.model.BoxcarEntityModel;
 import evannakita.cargo.client.renderer.BicycleEntityRenderer;
 import evannakita.cargo.client.renderer.BogieEntityRenderer;
+import evannakita.cargo.client.renderer.BoxcarEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -14,8 +16,9 @@ import net.minecraft.util.Identifier;
 
 public class CargoClient implements ClientModInitializer {
 
-    public static final EntityModelLayer BICYCLE_LAYER = new EntityModelLayer(new Identifier("cargo", "bicycle"), "main");
-    public static final EntityModelLayer BOGIE_LAYER = new EntityModelLayer(new Identifier("cargo", "bogie"), "main");
+    public static final EntityModelLayer BICYCLE_LAYER = new EntityModelLayer(new Identifier(Cargo.MOD_ID, "bicycle"), "main");
+    public static final EntityModelLayer BOGIE_LAYER = new EntityModelLayer(new Identifier(Cargo.MOD_ID, "bogie"), "main");
+    public static final EntityModelLayer BOXCAR_LAYER = new EntityModelLayer(new Identifier(Cargo.MOD_ID, "boxcar"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -24,6 +27,9 @@ public class CargoClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(Cargo.BOGIE, (context) -> new BogieEntityRenderer(context));
         EntityModelLayerRegistry.registerModelLayer(BOGIE_LAYER, BogieEntityModel::getTexturedModelData);
+
+        EntityRendererRegistry.register(Cargo.BOXCAR, (context) -> new BoxcarEntityRenderer(context));
+        EntityModelLayerRegistry.registerModelLayer(BOXCAR_LAYER, BoxcarEntityModel::getTexturedModelData);
 
         BlockRenderLayerMap.INSTANCE.putBlock(Cargo.TRACK_WITH_WHEELS, RenderLayer.getCutout());
     }

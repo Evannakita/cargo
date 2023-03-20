@@ -407,7 +407,7 @@ public class TrackPlacementHelper {
         }
     }
 
-    public void updateTrackState(boolean powered, boolean forceUpdate, TrackShape trackShape) {
+    public BlockState updateTrackState(boolean powered, boolean forceUpdate, TrackShape trackShape) {
         boolean N = this.canConnect(this.pos.north());
         boolean NE = this.canConnect(this.pos.north().east());
         boolean E = this.canConnect(this.pos.east());
@@ -547,9 +547,10 @@ public class TrackPlacementHelper {
                 this.computeShape(trackPlacementHelper);
             }
         }
+        return this.state;
     }
 
-    public void updateTrackState(boolean powered, boolean forceUpdate, SwitchShape switchShape) {
+    public BlockState updateTrackState(boolean powered, boolean forceUpdate, SwitchShape switchShape) {
         boolean N = this.canConnect(this.pos.north());
         boolean NE = this.canConnect(this.pos.north().east());
         boolean E = this.canConnect(this.pos.east());
@@ -907,9 +908,10 @@ public class TrackPlacementHelper {
                 this.computeShape(trackPlacementHelper);
             }
         }
+        return this.state;
     }
 
-    public void updateTrackState(boolean powered, boolean forceUpdate, JunctionShape junctionShape) {
+    public BlockState updateTrackState(boolean powered, boolean forceUpdate, JunctionShape junctionShape) {
         boolean N = this.canConnect(this.pos.north());
         boolean NE = this.canConnect(this.pos.north().east());
         boolean E = this.canConnect(this.pos.east());
@@ -981,6 +983,7 @@ public class TrackPlacementHelper {
                 this.computeShape(trackPlacementHelper);
             }
         }
+        return this.state;
     }
 
     public BlockState getBlockState() {

@@ -1,7 +1,7 @@
 package evannakita.cargo.block;
 
 import evannakita.cargo.Cargo;
-import net.minecraft.block.AirBlock;
+import evannakita.cargo.block.enums.TrackShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
@@ -13,6 +13,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
@@ -24,20 +25,113 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
         super(settings);
     }
     
-    protected BlockState updateStructureBlocks(BlockState state, WorldAccess world, BlockPos pos) {
-        BlockState structureState = Cargo.TRAIN_STRUCTURE_BLOCK.getDefaultState().with(TrainStructureBlock.FACING, state.get(this.getFacingProperty()));
-        if (world.getBlockState(pos.up()).getBlock() instanceof AirBlock) {
-            world.setBlockState(pos.up(), structureState.with(TrainStructureBlock.LEVEL, 1), Block.NOTIFY_LISTENERS);
+    protected BlockState updateFacingState(BlockState state, WorldAccess world, BlockPos pos) {
+        Direction facing = state.get(FACING);
+        if (world.getBlockState(pos.north()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+            facing = Direction.NORTH;
         }
-        if (world.getBlockState(pos.up(2)).getBlock() instanceof AirBlock) {
-            world.setBlockState(pos.up(2), structureState.with(TrainStructureBlock.LEVEL, 2), Block.NOTIFY_LISTENERS);
+        if (world.getBlockState(pos.east()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+            facing = Direction.EAST;
         }
+        if (world.getBlockState(pos.south()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+            facing = Direction.SOUTH;
+        }
+        if (world.getBlockState(pos.west()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+            facing = Direction.WEST;
+        }
+        if (world.getBlockState(pos.north()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+            facing = Direction.NORTH;
+        }
+        if (world.getBlockState(pos.east()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+            facing = Direction.EAST;
+        }
+        if (world.getBlockState(pos.south()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+            facing = Direction.SOUTH;
+        }
+        if (world.getBlockState(pos.west()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+            facing = Direction.WEST;
+        }
+        return state.with(FACING, facing);
+    }
+
+    protected void createStructureBlocks(BlockState state, WorldAccess world, BlockPos pos) {
+        BlockState structureState = Cargo.TRAIN_STRUCTURE_BLOCK.getDefaultState();
+        Direction facing = state.get(FACING);
+        switch (facing) {
+            case NORTH, SOUTH: {
+                if (world.getBlockState(pos.east()).isReplaceable()) {
+                    world.setBlockState(pos.east(), structureState.with(TrainStructureBlock.LEVEL, 0).with(TrainStructureBlock.FACING, Direction.WEST), NOTIFY_ALL);
+                }
+                if (world.getBlockState(pos.west()).isReplaceable()) {
+                    world.setBlockState(pos.west(), structureState.with(TrainStructureBlock.LEVEL, 0).with(TrainStructureBlock.FACING, Direction.EAST), NOTIFY_ALL);
+                }
+                if (world.getBlockState(pos.north()).isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+                    world.removeBlock(pos.north(), false);
+                }
+                if (world.getBlockState(pos.south()).isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+                    world.removeBlock(pos.south(), false);
+                }
+            }
+            case EAST, WEST: {
+                if (world.getBlockState(pos.north()).isReplaceable()) {
+                    world.setBlockState(pos.north(), structureState.with(TrainStructureBlock.LEVEL, 0).with(TrainStructureBlock.FACING, Direction.SOUTH), NOTIFY_ALL);
+                }
+                if (world.getBlockState(pos.south()).isReplaceable()) {
+                    world.setBlockState(pos.south(), structureState.with(TrainStructureBlock.LEVEL, 0).with(TrainStructureBlock.FACING, Direction.NORTH), NOTIFY_ALL);
+                }
+                if (world.getBlockState(pos.east()).isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+                    world.removeBlock(pos.east(), false);
+                }
+                if (world.getBlockState(pos.west()).isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+                    world.removeBlock(pos.west(), false);
+                }
+            }
+            default:
+        }
+        Direction perpendicular = state.get(this.getFacingProperty()).rotateYClockwise();
+        if (world.getBlockState(pos.up()).isAir()) {
+            world.setBlockState(pos.up(), structureState.with(TrainStructureBlock.LEVEL, 1).with(TrainStructureBlock.FACING, perpendicular), NOTIFY_ALL);
+        }
+        if (world.getBlockState(pos.up(2)).isAir()) {
+            world.setBlockState(pos.up(2), structureState.with(TrainStructureBlock.LEVEL, 2).with(TrainStructureBlock.FACING, perpendicular), NOTIFY_ALL);
+        }
+    }
+
+    @Override
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        Direction facing = state.get(FACING);
+        if (oldState.isOf(Cargo.TRAIN_TRACKS)) {
+            facing = Direction.NORTH;
+            if (oldState.get(AbstractTrackBlock.TRACK_SHAPE) == TrackShape.EAST_WEST) {
+                facing = Direction.EAST;
+            }
+        }
+        world.setBlockState(pos, this.updateConnectionsState(this.updateFacingState(state.with(FACING, facing), world, pos), world, pos));
+        this.createStructureBlocks(state, world, pos);
+    }
+    
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborstate, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        return this.updateFacingState(state, world, pos);
+    }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+    }
+
+    protected BlockState updateConnectionsState(BlockState state, WorldAccess world, BlockPos pos) {
         return state;
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborstate, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return this.updateStructureBlocks(state, world, pos);
+    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+        switch(state.get(FACING)) {
+            case NORTH, SOUTH:
+                world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
+            case EAST, WEST:
+                world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
+            default:
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package evannakita.cargo.client.renderer;
 
+import evannakita.cargo.Cargo;
 import evannakita.cargo.CargoClient;
 import evannakita.cargo.client.model.BogieEntityModel;
 import evannakita.cargo.entity.BogieEntity;
@@ -17,7 +18,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 
 public class BogieEntityRenderer extends EntityRenderer<BogieEntity>{
-    private static final Identifier TEXTURE = new Identifier("cargo", "textures/entity/bogie.png");
+    private static final Identifier TEXTURE = new Identifier(Cargo.MOD_ID, "textures/entity/bogie.png");
     protected final EntityModel<BogieEntity> model;
 
     public BogieEntityRenderer(EntityRendererFactory.Context context) {

@@ -1,0 +1,33 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "cargo:block/boxcar_hull",
+		"particle": "cargo:block/boxcar_hull"
+	},
+	"elements": [
+		{
+			"from": [0, 0, -5],
+			"to": [16, 3, 8],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 3], "texture": "#0"},
+				"east": {"uv": [3, 0, 16, 3], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 3], "texture": "#0"},
+				"west": {"uv": [0, 0, 13, 3], "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 13], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 13], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 0, 8],
+			"to": [16, 3, 21],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 3], "texture": "#0"},
+				"east": {"uv": [0, 0, 13, 3], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 3], "texture": "#0"},
+				"west": {"uv": [3, 0, 16, 3], "texture": "#0"},
+				"up": {"uv": [0, 3, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 3, 16, 16], "texture": "#0"}
+			}
+		}
+	]
+}

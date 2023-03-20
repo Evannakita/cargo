@@ -160,8 +160,8 @@ public enum SwitchShape implements StringIdentifiable {
         }
     }
 
-    public TrackShape getTrackShape(Boolean powered) {
-        if (powered) {
+    public TrackShape getTrackShape(Boolean right) {
+        if (right) {
             switch (this) {
                 case NORTH_LEFT, SOUTH_LEFT:
                     return TrackShape.NORTH_SOUTH;

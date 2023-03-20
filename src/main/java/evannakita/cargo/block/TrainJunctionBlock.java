@@ -18,11 +18,11 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class TrainJunctionBlock extends AbstractTrackBlock {
-    public static final EnumProperty<JunctionShape> SHAPE = EnumProperty.of("shape", JunctionShape.class);
+    public static final EnumProperty<JunctionShape> JUNCTION_SHAPE = EnumProperty.of("junction_shape", JunctionShape.class);
 
     public TrainJunctionBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(SHAPE, JunctionShape.T)).with(WATERLOGGED, false));
+        this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(JUNCTION_SHAPE, JunctionShape.T)).with(WATERLOGGED, false));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class TrainJunctionBlock extends AbstractTrackBlock {
 
     @Override
     public Property<JunctionShape> getJunctionShapeProperty() {
-        return SHAPE;
+        return JUNCTION_SHAPE;
     }
 
     @Override
@@ -65,6 +65,6 @@ public class TrainJunctionBlock extends AbstractTrackBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SHAPE, WATERLOGGED);
+        builder.add(JUNCTION_SHAPE, WATERLOGGED);
     }
 }

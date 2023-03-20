@@ -1,6 +1,6 @@
 {
-    "parent": "cargo:block/hull",
+    "parent": "minecraft:block/cube_all",
     "textures": {
-        "all": "minecraft:block/iron_block"
+        "all": "cargo:block/boxcar_hull"
     }
 }

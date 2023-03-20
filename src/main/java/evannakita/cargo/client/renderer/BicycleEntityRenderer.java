@@ -1,5 +1,6 @@
 package evannakita.cargo.client.renderer;
 
+import evannakita.cargo.Cargo;
 import evannakita.cargo.CargoClient;
 import evannakita.cargo.client.model.BicycleEntityModel;
 import evannakita.cargo.entity.BicycleEntity;
@@ -16,7 +17,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 public class BicycleEntityRenderer extends EntityRenderer<BicycleEntity>{
-    private static final Identifier TEXTURE = new Identifier("cargo", "textures/entity/bicycle.png");
+    private static final Identifier TEXTURE = new Identifier(Cargo.MOD_ID, "textures/entity/bicycle.png");
     protected final EntityModel<BicycleEntity> model;
 
     public BicycleEntityRenderer(EntityRendererFactory.Context context) {

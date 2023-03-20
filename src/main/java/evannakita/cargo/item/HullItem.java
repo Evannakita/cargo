@@ -2,6 +2,7 @@ package evannakita.cargo.item;
 
 import evannakita.cargo.block.TrainStructureBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemUsageContext;
@@ -15,10 +16,16 @@ public class HullItem extends BlockItem {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof TrainStructureBlock && context.getSide().getAxis().isHorizontal()) {
-            ActionResult actionResult = this.place(new ItemPlacementContext(context));
-            return actionResult;
+        BlockState placedOn = context.getWorld().getBlockState(context.getBlockPos());
+        if (placedOn.getBlock() instanceof TrainStructureBlock) {
+            if (placedOn.get(TrainStructureBlock.LEVEL) > 0) {
+                if (context.getSide().getAxis() == placedOn.get(TrainStructureBlock.FACING).getAxis()) {
+                    return this.place(new ItemPlacementContext(context));
+                } else {
+                    return ActionResult.FAIL;
+                }
+            }
         }
-        return ActionResult.FAIL;
+        return this.place(new ItemPlacementContext(context));
     }
 }

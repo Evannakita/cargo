@@ -469,25 +469,8 @@ public class BogieEntity extends Entity {
             e *= (double)0.1f;
             d *= 0.5;
             e *= 0.5;
-            if (entity instanceof BogieEntity) {
-                double h = entity.getX() - this.getX();
-                Vec3d vec3d = new Vec3d(h, 0.0, entity.getZ() - this.getZ()).normalize();
-                double j = Math.abs(vec3d.dotProduct(new Vec3d(MathHelper.cos(this.getYaw() * ((float)Math.PI / 180)), 0.0, MathHelper.sin(this.getYaw() * ((float)Math.PI / 180))).normalize()));
-                if (j < (double)0.8f) {
-                    return;
-                }
-                Vec3d vec3d3 = this.getVelocity();
-                Vec3d vec3d4 = entity.getVelocity();
-                double k = (vec3d4.x + vec3d3.x) / 2.0;
-                double l = (vec3d4.z + vec3d3.z) / 2.0;
-                this.setVelocity(vec3d3.multiply(0.2, 1.0, 0.2));
-                this.addVelocity(k - d, 0.0, l - e);
-                entity.setVelocity(vec3d4.multiply(0.2, 1.0, 0.2));
-                entity.addVelocity(k + d, 0.0, l + e);
-            } else {
-                this.addVelocity(-d, 0.0, -e);
-                entity.addVelocity(d / 4.0, 0.0, e / 4.0);
-            }
+            this.addVelocity(-d, 0.0, -e);
+            entity.addVelocity(d / 4.0, 0.0, e / 4.0);
         }
     }
 

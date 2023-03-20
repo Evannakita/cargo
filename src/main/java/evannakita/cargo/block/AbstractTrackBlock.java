@@ -29,7 +29,7 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
     protected static final VoxelShape MIDDLE_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 10.0, 16.0);
     protected static final VoxelShape TOP_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public static final EnumProperty<TrackShape> SHAPE = EnumProperty.of("shape", TrackShape.class);
+    public static final EnumProperty<TrackShape> TRACK_SHAPE = EnumProperty.of("track_shape", TrackShape.class);
 
     public static boolean isTrack(World world, BlockPos pos) {
         return AbstractTrackBlock.isTrack(world.getBlockState(pos));
@@ -61,9 +61,8 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
             return state;
         }
         TrackShape trackShape = state.get(this.getTrackShapeProperty());
-        TrackPlacementHelper placementHelper = new TrackPlacementHelper(world, pos, state);
-        placementHelper.updateTrackState(world.isReceivingRedstonePower(pos), forceUpdate, trackShape);
-        return placementHelper.getBlockState();
+        BlockState newState = new TrackPlacementHelper(world, pos, state).updateTrackState(world.isReceivingRedstonePower(pos), forceUpdate, trackShape);
+        return newState;
     }
 
     @Override
@@ -86,7 +85,7 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
     }
 
     public Property<TrackShape> getTrackShapeProperty() {
-        return SHAPE;
+        return TRACK_SHAPE;
     }
 
     public Property<SwitchShape> getSwitchShapeProperty() {
@@ -117,83 +116,83 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
         switch (rotation) {
             case CLOCKWISE_180: {
-                switch (state.get(SHAPE)) {
+                switch (state.get(TRACK_SHAPE)) {
                     case NORTH_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHWEST);
                     case NORTH_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHEAST);
                     case EAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_NORTHEAST);
                     case EAST_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_SOUTHEAST);
                     case SOUTH_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHEAST);
                     case SOUTH_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHWEST);
                     case WEST_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_SOUTHWEST);
                     case WEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_NORTHWEST);
                     default:
                         return state;
                 }
             }
             case COUNTERCLOCKWISE_90: {
-                switch (state.get(SHAPE)) {
+                switch (state.get(TRACK_SHAPE)) {
                     case NORTH_SOUTH:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_WEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_WEST);
                     case EAST_WEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTH);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTH);
                     case NORTHEAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
                     case NORTHWEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     case NORTH_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_NORTHEAST);
                     case NORTH_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_SOUTHEAST);
                     case EAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHEAST);
                     case EAST_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHWEST);
                     case SOUTH_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_SOUTHWEST);
                     case SOUTH_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_NORTHWEST);
                     case WEST_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHWEST);
                     case WEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHEAST);
                     default:
                         return state;
                 }
             }
             case CLOCKWISE_90: {
-                switch (state.get(SHAPE)) {
+                switch (state.get(TRACK_SHAPE)) {
                     case NORTH_SOUTH:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_WEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_WEST);
                     case EAST_WEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTH);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTH);
                     case NORTHEAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
                     case NORTHWEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     case NORTH_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_SOUTHWEST);
                     case NORTH_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_NORTHWEST);
                     case EAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHWEST);
                     case EAST_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHEAST);
                     case SOUTH_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_NORTHEAST);
                     case SOUTH_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_SOUTHEAST);
                     case WEST_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHEAST);
                     case WEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHWEST);
                     default:
                         return state;
                 }
@@ -205,30 +204,30 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
 
     @Override
     public BlockState mirror(BlockState state, BlockMirror mirror) {
-        TrackShape trackShape = state.get(SHAPE);
+        TrackShape trackShape = state.get(TRACK_SHAPE);
         switch (mirror) {
             case LEFT_RIGHT: {
                 switch (trackShape) {
                     case NORTHEAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
                     case NORTHWEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     case NORTH_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHEAST);
                     case NORTH_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHWEST);
                     case EAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_NORTHWEST);
                     case EAST_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_SOUTHWEST);
                     case SOUTH_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHWEST);
                     case SOUTH_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHEAST);
                     case WEST_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_SOUTHEAST);
                     case WEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_NORTHEAST);
                     default:
                         break;
                 }
@@ -236,25 +235,25 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
             case FRONT_BACK: {
                 switch (trackShape) {
                     case NORTHEAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHWEST_SOUTHEAST);
                     case NORTHWEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTHEAST_SOUTHWEST);
                     case NORTH_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHWEST);
                     case NORTH_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.NORTH_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.NORTH_SOUTHEAST);
                     case EAST_SOUTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_SOUTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_SOUTHEAST);
                     case EAST_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.WEST_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.WEST_NORTHEAST);
                     case SOUTH_NORTHWEST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHEAST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHEAST);
                     case SOUTH_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.SOUTH_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.SOUTH_NORTHWEST);
                     case WEST_NORTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_NORTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_NORTHWEST);
                     case WEST_SOUTHEAST:
-                        return (BlockState)state.with(SHAPE, TrackShape.EAST_SOUTHWEST);
+                        return (BlockState)state.with(TRACK_SHAPE, TrackShape.EAST_SOUTHWEST);
                     default:
                         break;
                 }
@@ -266,6 +265,6 @@ public abstract class AbstractTrackBlock extends Block implements Waterloggable 
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SHAPE, WATERLOGGED);
+        builder.add(TRACK_SHAPE, WATERLOGGED);
     }
 }

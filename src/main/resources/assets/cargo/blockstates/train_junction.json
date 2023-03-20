@@ -1,22 +1,22 @@
 {
     "variants": {
-      "shape=t": {
+      "junction_shape=t": {
         "model": "cargo:block/train_junction_straight"
       },
-      "shape=x": {
+      "junction_shape=x": {
         "model": "cargo:block/train_junction_diagonal"
       },
-      "shape=ns_left": {
+      "junction_shape=ns_left": {
         "model": "cargo:block/train_junction_left"
       },
-      "shape=ns_right": {
+      "junction_shape=ns_right": {
         "model": "cargo:block/train_junction_right"
       },
-      "shape=ew_left": {
+      "junction_shape=ew_left": {
         "model": "cargo:block/train_junction_left",
         "y": 90
       },
-      "shape=ew_right": {
+      "junction_shape=ew_right": {
         "model": "cargo:block/train_junction_right",
         "y": 90
       }
