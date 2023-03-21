@@ -1,19 +1,35 @@
 {
     "variants": {
-      "facing=north": {
+      "facing=north,linked=false": {
         "model": "cargo:block/track_with_coupler",
         "y": 0
       },
-      "facing=east": {
+      "facing=east,linked=false": {
         "model": "cargo:block/track_with_coupler",
         "y": 90
       },
-      "facing=south": {
+      "facing=south,linked=false": {
         "model": "cargo:block/track_with_coupler",
         "y": 180
       },
-      "facing=west": {
+      "facing=west,linked=false": {
         "model": "cargo:block/track_with_coupler",
+        "y": 270
+      },
+      "facing=north,linked=true": {
+        "model": "cargo:block/track_with_coupler_linked",
+        "y": 0
+      },
+      "facing=east,linked=true": {
+        "model": "cargo:block/track_with_coupler_linked",
+        "y": 90
+      },
+      "facing=south,linked=true": {
+        "model": "cargo:block/track_with_coupler_linked",
+        "y": 180
+      },
+      "facing=west,linked=true": {
+        "model": "cargo:block/track_with_coupler_linked",
         "y": 270
       }
     }

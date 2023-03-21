@@ -31,6 +31,9 @@ public class CargoClient implements ClientModInitializer {
         EntityRendererRegistry.register(Cargo.BOXCAR, (context) -> new BoxcarEntityRenderer(context));
         EntityModelLayerRegistry.registerModelLayer(BOXCAR_LAYER, BoxcarEntityModel::getTexturedModelData);
 
+        BlockRenderLayerMap.INSTANCE.putBlock(Cargo.HOPPER_CAR_HULL, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Cargo.TANK_CAR_HATCH, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Cargo.TANK_CAR_HULL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Cargo.TRACK_WITH_WHEELS, RenderLayer.getCutout());
     }
 }

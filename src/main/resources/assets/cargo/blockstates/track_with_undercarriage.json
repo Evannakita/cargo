@@ -1,19 +1,35 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,width=true": {
       "model": "cargo:block/track_with_undercarriage",
       "y": 0
     },
-    "facing=east": {
+    "facing=east,width=true": {
       "model": "cargo:block/track_with_undercarriage",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,width=true": {
       "model": "cargo:block/track_with_undercarriage",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,width=true": {
       "model": "cargo:block/track_with_undercarriage",
+      "y": 270
+    },
+    "facing=north,width=false": {
+      "model": "cargo:block/train_tracks_straight",
+      "y": 0
+    },
+    "facing=east,width=false": {
+      "model": "cargo:block/train_tracks_straight",
+      "y": 90
+    },
+    "facing=south,width=false": {
+      "model": "cargo:block/train_tracks_straight",
+      "y": 180
+    },
+    "facing=west,width=false": {
+      "model": "cargo:block/train_tracks_straight",
       "y": 270
     }
   }

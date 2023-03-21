@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
@@ -32,8 +33,9 @@ import net.minecraft.world.WorldEvents;
 
 public class TrackWithCouplerBlock extends HorizontalFacingBlock {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
-    public static final List<String> PATTERNS = Arrays.asList("-0^^0-", "-0^^^0-", "-0^^^^0-", "-00^^00-", "-00^^^00-", "-00^^^^00-", "-00^^^^^00-", "-00^^^^^^00-", "-000^^^^000-", "-000^^^^^000-", "-000^^^^^^^000-");
+    public static final BooleanProperty LINKED = BooleanProperty.of("linked");
 
+    public static final List<String> PATTERNS = Arrays.asList("-0^^0-", "-0^^^0-", "-0^^^^0-", "-00^^00-", "-00^^^00-", "-00^^^^00-", "-00^^^^^00-", "-00^^^^^^00-", "-000^^^^000-", "-000^^^^^000-", "-000^^^^^^^000-");
     private static final Predicate<BlockState> IS_COUPLER_PREDICATE = state -> state != null && state.isOf(Cargo.TRACK_WITH_COUPLER);
 
     private static VoxelShape trackShape = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
@@ -46,21 +48,29 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
         super(settings);
     }
 
-    protected BlockState updateFacingState(BlockState state, WorldAccess world, BlockPos pos) {
+    protected BlockState updateStates(BlockState state, WorldAccess world, BlockPos pos) {
         Direction facing = state.get(FACING);
-        if (world.getBlockState(pos.north()).getBlock() instanceof TrackWithUndercarriageBlock) {
+        Boolean linked = false;
+        Block northBlock = world.getBlockState(pos.north()).getBlock();
+        Block eastBlock = world.getBlockState(pos.east()).getBlock();
+        Block southBlock = world.getBlockState(pos.south()).getBlock();
+        Block westBlock = world.getBlockState(pos.west()).getBlock();
+        if (northBlock instanceof TrackWithUndercarriageBlock) {
             facing = Direction.NORTH;
-        }
-        if (world.getBlockState(pos.east()).getBlock() instanceof TrackWithUndercarriageBlock) {
+            if (southBlock instanceof TrackWithUndercarriageBlock) {
+                linked = true;
+            }
+        } else if (eastBlock instanceof TrackWithUndercarriageBlock) {
             facing = Direction.EAST;
-        }
-        if (world.getBlockState(pos.south()).getBlock() instanceof TrackWithUndercarriageBlock) {
+            if (westBlock instanceof TrackWithUndercarriageBlock) {
+                linked = true;
+            }
+        } else if (southBlock instanceof TrackWithUndercarriageBlock) {
             facing = Direction.SOUTH;
-        }
-        if (world.getBlockState(pos.west()).getBlock() instanceof TrackWithUndercarriageBlock) {
+        } else if (westBlock instanceof TrackWithUndercarriageBlock) {
             facing = Direction.WEST;
         }
-        return state.with(FACING, facing);
+        return state.with(FACING, facing).with(LINKED, linked);
     }
 
     @Override
@@ -72,13 +82,13 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
                 facing = Direction.EAST;
             }
         }
-        world.setBlockState(pos, this.updateFacingState(state.with(FACING, facing), world, pos));
+        world.setBlockState(pos, this.updateStates(state.with(FACING, facing), world, pos));
         this.trySpawnEntity(world, pos);
     }
     
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborstate, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return this.updateFacingState(state, world, pos);
+        return this.updateStates(state, world, pos);
     }
 
     @Override
@@ -167,9 +177,13 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
         return FACING;
     }
 
+    public Property<Boolean> getLinkedProperty() {
+        return LINKED;
+    }
+
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, LINKED);
     }
 
 }

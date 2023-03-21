@@ -72,9 +72,9 @@ public class TrackWithWheelsBlock extends TrackWithUndercarriageBlock {
     public IntProperty getConnectionsProperty() {
         return CONNECTIONS;
     }
-
+    
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, CONNECTIONS);
+        builder.add(FACING, WIDTH, CONNECTIONS);
     }
 }

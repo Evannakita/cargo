@@ -1,0 +1,35 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "minecraft:block/iron_block",
+		"1": "minecraft:block/coal_block"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 8],
+			"to": [16, 16, 11],
+			"color": 0,
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "0"},
+				"east": {"uv": [13, 0, 16, 16], "texture": "0"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "0"},
+				"west": {"uv": [0, 0, 3, 16], "texture": "0"},
+				"up": {"uv": [0, 0, 16, 3], "texture": "0"},
+				"down": {"uv": [0, 13, 16, 16], "texture": "0"}
+			}
+		},
+		{
+			"from": [0, 0, 11],
+			"to": [16, 14, 24],
+			"color": 9,
+			"faces": {
+				"north": {"uv": [0, 0, 16, 14], "texture": "1"},
+				"east": {"uv": [3, 0, 16, 14], "texture": "1"},
+				"south": {"uv": [0, 0, 16, 14], "texture": "1"},
+				"west": {"uv": [0, 0, 13, 14], "texture": "1"},
+				"up": {"uv": [0, 0, 16, 13], "texture": "1"},
+				"down": {"uv": [0, 3, 16, 16], "texture": "1"}
+			}
+		}
+	]
+}

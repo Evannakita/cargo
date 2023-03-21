@@ -133,6 +133,14 @@ public class Cargo implements ModInitializer {
 		new Item.Settings()
 	);
 	
+	// Hopper Car Hull
+	public static final HullBlock HOPPER_CAR_HULL = new HullBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
+	);
+
 	// Jack
 	public static final JackBlock JACK = new JackBlock(
 		FabricBlockSettings.of(Material.METAL)
@@ -196,6 +204,22 @@ public class Cargo implements ModInitializer {
 		.sounds(BlockSoundGroup.FROGLIGHT)
 	);
 	
+	// Tank Car Hatch
+	public static final RoofBlock TANK_CAR_HATCH = new RoofBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
+	);
+
+	// Tank Car Hull
+	public static final HullBlock TANK_CAR_HULL = new HullBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
+	);
+
 	// Train Coupler
 	public static final Item TRAIN_COUPLER = new Item(
 		new Item.Settings()
@@ -305,6 +329,10 @@ public class Cargo implements ModInitializer {
 		// Bucket of Petroleum
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "petroleum_bucket"), PETROLEUM_BUCKET);
 
+		// Hopper Car Hull
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "hopper_car_hull"), HOPPER_CAR_HULL);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "hopper_car_hull"), new BlockItem(HOPPER_CAR_HULL, new FabricItemSettings()));
+
 		// Jack
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "jack"), JACK);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "jack"), new BlockItem(JACK, new FabricItemSettings()));
@@ -323,6 +351,14 @@ public class Cargo implements ModInitializer {
 		// Rubber Block
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "rubber_block"), RUBBER_BLOCK);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "rubber_block"), new BlockItem(RUBBER_BLOCK, new FabricItemSettings()));
+
+		// Tank Car Hatch
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "tank_car_hatch"), TANK_CAR_HATCH);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "tank_car_hatch"), new BlockItem(TANK_CAR_HATCH, new FabricItemSettings()));
+
+		// Tank Car Hull
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "tank_car_hull"), TANK_CAR_HULL);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "tank_car_hull"), new BlockItem(TANK_CAR_HULL, new FabricItemSettings()));
 
 		// Train Coupler
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "train_coupler"), TRAIN_COUPLER);
@@ -376,7 +412,10 @@ public class Cargo implements ModInitializer {
 				TRAIN_COUPLER,
 				BOXCAR_HULL,
 				BOXCAR_DOOR,
-				BOXCAR_ROOF
+				BOXCAR_ROOF,
+				HOPPER_CAR_HULL,
+				TANK_CAR_HULL,
+				TANK_CAR_HATCH
 			);
 			content.addAfter(Items.ACTIVATOR_RAIL,
 				TRAIN_TRACKS,

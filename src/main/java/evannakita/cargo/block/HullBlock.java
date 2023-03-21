@@ -10,7 +10,10 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Property;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -20,6 +23,8 @@ import net.minecraft.world.World;
 
 public class HullBlock extends HorizontalFacingBlock {
     public static final BooleanProperty OFFSET = BooleanProperty.of("offset");
+    public static final IntProperty LEVEL = IntProperty.of("level", 0, 3);
+    public static final EnumProperty<Position> POSITION = EnumProperty.of("position", Position.class);
 
     protected static final VoxelShape NORTH_SHAPE = Block.createCuboidShape(0.0, 0.0, 8.0, 16.0, 16.0, 16.0);
     protected static final VoxelShape EAST_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 8.0, 16.0, 16.0);
@@ -38,21 +43,44 @@ public class HullBlock extends HorizontalFacingBlock {
         return OFFSET;
     }
     
+    public Property<Integer> getLevelProperty() {
+        return LEVEL;
+    }
+    
+    public Property<Position> getPositionProperty() {
+        return POSITION;
+    }
+    
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
         BlockPos pos = new BlockPos(context.getHitPos());
         BlockState placedOn = context.getWorld().getBlockState(pos);
+        Direction facing = Direction.NORTH;
+        boolean offset = false;
+        int level = 0;
+        Position position = Position.MIDDLE;
         if (placedOn.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+            level = placedOn.get(LEVEL);
+            offset = true;
             if (placedOn.get(TrainStructureBlock.LEVEL) > 0) {
-                return this.getDefaultState().with(FACING, context.getSide()).with(OFFSET, true);
+                facing = context.getSide();
+            } else if (context.getWorld().getBlockState(pos.offset(placedOn.get(FACING))).isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+                facing = placedOn.get(FACING);
             }
         }
-        if (placedOn.getBlock() instanceof HullBlock || placedOn.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+        if (placedOn.getBlock() instanceof HullBlock) {
             if (context.getWorld().getBlockState(pos.offset(placedOn.get(FACING))).isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
-                return this.getDefaultState().with(FACING, placedOn.get(FACING)).with(OFFSET, true);
+                facing = placedOn.get(FACING);
+                offset = true;
             }
         }
-        return this.getDefaultState().with(OFFSET, false);
+        if (context.getWorld().getBlockState(pos.down(level).offset(facing).offset(facing.rotateYClockwise())).isOf(Cargo.TRACK_WITH_COUPLER)) {
+            position = Position.END_LEFT;
+        }
+        if (context.getWorld().getBlockState(pos.down(level).offset(facing).offset(facing.rotateYCounterclockwise())).isOf(Cargo.TRACK_WITH_COUPLER)) {
+            position = Position.END_RIGHT;
+        }
+        return this.getDefaultState().with(FACING, facing).with(OFFSET, offset).with(LEVEL, level).with(POSITION, position);
     }
 
     @Override
@@ -80,6 +108,22 @@ public class HullBlock extends HorizontalFacingBlock {
     
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OFFSET);
+        builder.add(FACING, OFFSET, LEVEL, POSITION);
+    }
+
+    public enum Position implements StringIdentifiable {
+        END_LEFT("end_left"),
+        END_RIGHT("end_right"),
+        MIDDLE("middle");
+
+        private final String name;
+
+        private Position(String name) {
+            this.name = name;
+        }
+        @Override
+        public String asString() {
+            return this.name;
+        }
     }
 }
