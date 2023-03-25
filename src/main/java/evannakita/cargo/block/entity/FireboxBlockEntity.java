@@ -1,7 +1,7 @@
 package evannakita.cargo.block.entity;
 
 import evannakita.cargo.Cargo;
-import evannakita.cargo.screen.RefineryScreenHandler;
+import evannakita.cargo.screen.FireboxScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -9,9 +9,9 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
-public class RefineryBlockEntity extends AbstractFurnaceBlockEntity {
-    public RefineryBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(Cargo.REFINERY_ENTITY, blockPos, blockState, Cargo.REFINING_RECIPE);
+public class FireboxBlockEntity extends AbstractFurnaceBlockEntity {
+    public FireboxBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(Cargo.FIREBOX_ENTITY, blockPos, blockState, Cargo.REFINING_RECIPE);
     }
 
     @Override
@@ -21,7 +21,6 @@ public class RefineryBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new RefineryScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return new FireboxScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
-
 }

@@ -32,19 +32,19 @@
       "model": "cargo:block/tank_car_hull_top_offset",
       "y": 90
     },
-    "offset=false,facing=north": {
+    "offset=false,facing=north,level=": {
       "model": "cargo:block/tank_car_hull_top",
       "y": 180
     },
-    "offset=false,facing=east": {
+    "offset=false,facing=east,level=": {
       "model": "cargo:block/tank_car_hull_top",
       "y": 270
     },
-    "offset=false,facing=south": {
+    "offset=false,facing=south,level=": {
       "model": "cargo:block/tank_car_hull_top",
       "y": 0
     },
-    "offset=false,facing=west": {
+    "offset=false,facing=west,level=": {
       "model": "cargo:block/tank_car_hull_top",
       "y": 90
     }

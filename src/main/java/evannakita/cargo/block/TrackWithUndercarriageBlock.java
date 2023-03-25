@@ -61,7 +61,7 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
         return state;
     }
 
-    protected BlockState updateVisibilityState(BlockState state, WorldAccess world, BlockPos pos) {
+    protected BlockState updateWidthState(BlockState state, WorldAccess world, BlockPos pos) {
         switch (state.get(FACING)) {
             case NORTH, SOUTH: {
                 if (world.getBlockState(pos.up().east()).isOf(Cargo.TANK_CAR_HULL) || world.getBlockState(pos.up().west()).isOf(Cargo.TANK_CAR_HULL)) {
@@ -94,6 +94,7 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
                     if (world.getBlockState(pos.west()).isReplaceable()) {
                         world.setBlockState(pos.west(), structureState.with(TrainStructureBlock.LEVEL, 0).with(TrainStructureBlock.FACING, Direction.EAST), NOTIFY_ALL);
                     }
+                    break;
                 }
                 case EAST, WEST: {
                     if (world.getBlockState(pos.north()).isReplaceable()) {
@@ -102,15 +103,16 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
                     if (world.getBlockState(pos.south()).isReplaceable()) {
                         world.setBlockState(pos.south(), structureState.with(TrainStructureBlock.LEVEL, 0).with(TrainStructureBlock.FACING, Direction.NORTH), NOTIFY_ALL);
                     }
+                    break;
                 }
                 default:
             }
         }
         Direction perpendicular = state.get(this.getFacingProperty()).rotateYClockwise();
-        if (world.getBlockState(pos.up()).isAir()) {
+        if (world.getBlockState(pos.up()).isReplaceable()) {
             world.setBlockState(pos.up(), structureState.with(TrainStructureBlock.LEVEL, 1).with(TrainStructureBlock.FACING, perpendicular), NOTIFY_ALL);
         }
-        if (world.getBlockState(pos.up(2)).isAir()) {
+        if (world.getBlockState(pos.up(2)).isReplaceable()) {
             world.setBlockState(pos.up(2), structureState.with(TrainStructureBlock.LEVEL, 2).with(TrainStructureBlock.FACING, perpendicular), NOTIFY_ALL);
         }
     }
@@ -127,14 +129,17 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
         state = state.with(FACING, facing);
         state = this.updateFacingState(state, world, pos);
         state = this.updateConnectionsState(state, world, pos);
-        state = this.updateVisibilityState(state, world, pos);
+        state = this.updateWidthState(state, world, pos);
         world.setBlockState(pos, state);
         this.createStructureBlocks(state, world, pos);
     }
     
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborstate, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return this.updateFacingState(state, world, pos);
+        state = this.updateFacingState(state, world, pos);
+        state = this.updateConnectionsState(state, world, pos);
+        state = this.updateWidthState(state, world, pos);
+        return state;
     }
 
     @Override
@@ -146,8 +151,10 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
         switch(state.get(FACING)) {
             case NORTH, SOUTH:
                 world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
+                break;
             case EAST, WEST:
                 world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
+                break;
             default:
         }
     }

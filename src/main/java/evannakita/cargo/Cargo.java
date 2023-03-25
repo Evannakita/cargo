@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
@@ -19,6 +20,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.screen.Generic3x3ContainerScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -29,7 +31,7 @@ import org.slf4j.LoggerFactory;
 import evannakita.cargo.block.HullBlock;
 import evannakita.cargo.block.JackBlock;
 import evannakita.cargo.block.RedstoneBatteryBlock;
-import evannakita.cargo.block.RefineryBlock;
+import evannakita.cargo.block.FireboxBlock;
 import evannakita.cargo.block.RoofBlock;
 import evannakita.cargo.block.TrackWithWheelsBlock;
 import evannakita.cargo.block.TrackWithCouplerBlock;
@@ -38,8 +40,9 @@ import evannakita.cargo.block.TrainJunctionBlock;
 import evannakita.cargo.block.TrainStructureBlock;
 import evannakita.cargo.block.TrainSwitchBlock;
 import evannakita.cargo.block.TrainTrackBlock;
+import evannakita.cargo.block.entity.BoxcarHullBlockEntity;
 import evannakita.cargo.block.entity.JackBlockEntity;
-import evannakita.cargo.block.entity.RefineryBlockEntity;
+import evannakita.cargo.block.entity.FireboxBlockEntity;
 import evannakita.cargo.entity.BicycleEntity;
 import evannakita.cargo.entity.BogieEntity;
 import evannakita.cargo.entity.BoxcarEntity;
@@ -47,7 +50,7 @@ import evannakita.cargo.item.BicycleItem;
 import evannakita.cargo.item.HullItem;
 import evannakita.cargo.item.TrainTracksItem;
 import evannakita.cargo.recipe.RefiningRecipe;
-import evannakita.cargo.screen.RefineryScreenHandler;
+import evannakita.cargo.screen.FireboxScreenHandler;
 
 public class Cargo implements ModInitializer {
 	public static final String MOD_ID = "cargo";
@@ -89,6 +92,14 @@ public class Cargo implements ModInitializer {
 		FabricEntityTypeBuilder.<BogieEntity>create(SpawnGroup.MISC, BogieEntity::new).dimensions(EntityDimensions.fixed(1.5f, 0.875f)).build()
 	);
 
+	// Boiler
+	public static final HullBlock BOILER = new HullBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
+	);
+
 	// Boxcar
 	public static final EntityType<BoxcarEntity> BOXCAR = Registry.register(
 		Registries.ENTITY_TYPE,
@@ -98,16 +109,28 @@ public class Cargo implements ModInitializer {
 
 	// Boxcar Door
 	public static final HullBlock BOXCAR_DOOR = new HullBlock(
-		FabricBlockSettings.of(Material.METAL)
+		FabricBlockSettings.copyOf(Blocks.CHEST)
 		.strength(3.5F, 3.5F)
 		.sounds(BlockSoundGroup.METAL)
 	);
 
 	// Boxcar Hull
 	public static final HullBlock BOXCAR_HULL = new HullBlock(
-		FabricBlockSettings.of(Material.METAL)
+		FabricBlockSettings.copyOf(Blocks.CHEST)
 		.strength(3.5F, 3.5F)
 		.sounds(BlockSoundGroup.METAL)
+	);
+
+	public static final BlockEntityType<BoxcarHullBlockEntity> BOXCAR_HULL_ENTITY = Registry.register(
+		Registries.BLOCK_ENTITY_TYPE,
+		new Identifier(MOD_ID, "boxcar_hull"),
+		FabricBlockEntityTypeBuilder.create(BoxcarHullBlockEntity::new, BOXCAR_DOOR, BOXCAR_HULL).build()
+	);
+
+	public static final ScreenHandlerType<Generic3x3ContainerScreenHandler> BOXCAR_SCREEN_HANDLER = Registry.register(
+		Registries.SCREEN_HANDLER,
+		new Identifier(MOD_ID, "boxcar"),
+		new ScreenHandlerType<Generic3x3ContainerScreenHandler>(Generic3x3ContainerScreenHandler::new)
 	);
 
 	// Boxcar Roof
@@ -132,7 +155,37 @@ public class Cargo implements ModInitializer {
 	public static final Item PETROLEUM_BUCKET = new Item(
 		new Item.Settings()
 	);
-	
+
+	// Firebox
+	public static final FireboxBlock FIREBOX = new FireboxBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
+	);
+
+	public static final BlockEntityType<FireboxBlockEntity> FIREBOX_ENTITY = Registry.register(
+		Registries.BLOCK_ENTITY_TYPE,
+		new Identifier(MOD_ID, "firebox"),
+		FabricBlockEntityTypeBuilder.create(FireboxBlockEntity::new, FIREBOX).build()
+	);
+
+	public static final ScreenHandlerType<FireboxScreenHandler> FIREBOX_SCREEN_HANDLER = Registry.register(
+		Registries.SCREEN_HANDLER,
+		new Identifier(MOD_ID, "firebox"),
+		new ScreenHandlerType<FireboxScreenHandler>(FireboxScreenHandler::new)
+	);
+
+	public static final RecipeType<RefiningRecipe> REFINING_RECIPE = Registry.register(
+		Registries.RECIPE_TYPE,
+		new Identifier(MOD_ID, "firebox"),
+		new RecipeType<RefiningRecipe>() {
+			@Override
+			public String toString() {
+				return "firebox";
+			}
+		}
+	);
+
 	// Hopper Car Hull
 	public static final HullBlock HOPPER_CAR_HULL = new HullBlock(
 		FabricBlockSettings.of(Material.METAL)
@@ -162,36 +215,6 @@ public class Cargo implements ModInitializer {
 		.sounds(BlockSoundGroup.STONE)
 	);
 
-	// Refinery
-	public static final RefineryBlock REFINERY = new RefineryBlock(
-		FabricBlockSettings.of(Material.METAL)
-		.strength(3.5F,3.5F)
-		.sounds(BlockSoundGroup.METAL)
-	);
-
-	public static final BlockEntityType<RefineryBlockEntity> REFINERY_ENTITY = Registry.register(
-		Registries.BLOCK_ENTITY_TYPE,
-		new Identifier(MOD_ID, "refinery"),
-		FabricBlockEntityTypeBuilder.create(RefineryBlockEntity::new, REFINERY).build()
-	);
-
-	public static final ScreenHandlerType<RefineryScreenHandler> REFINERY_SCREEN_HANDLER = Registry.register(
-		Registries.SCREEN_HANDLER,
-		new Identifier(MOD_ID, "refinery"),
-		new ScreenHandlerType<RefineryScreenHandler>(RefineryScreenHandler::new)
-	);
-
-	public static final RecipeType<RefiningRecipe> REFINING_RECIPE = Registry.register(
-		Registries.RECIPE_TYPE,
-		new Identifier(MOD_ID, "refinery"),
-		new RecipeType<RefiningRecipe>() {
-			@Override
-			public String toString() {
-				return "refinery";
-			}
-		}
-	);
-
 	// Rubber
 	public static final Item RUBBER = new Item(
 		new Item.Settings()
@@ -203,7 +226,14 @@ public class Cargo implements ModInitializer {
 		.strength(0.0F,0.0F)
 		.sounds(BlockSoundGroup.FROGLIGHT)
 	);
-	
+
+	// Smokestack
+	public static final RoofBlock SMOKESTACK = new RoofBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
+	);
+
 	// Tank Car Hatch
 	public static final RoofBlock TANK_CAR_HATCH = new RoofBlock(
 		FabricBlockSettings.of(Material.METAL)
@@ -308,6 +338,10 @@ public class Cargo implements ModInitializer {
 		// Bitumen
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "bitumen"), BITUMEN);
 
+		// Boiler
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "boiler"), BOILER);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "boiler"), new HullItem(BOILER, new FabricItemSettings()));
+
 		// Boxcar Door
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "boxcar_door"), BOXCAR_DOOR);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "boxcar_door"), new HullItem(BOXCAR_DOOR, new FabricItemSettings()));
@@ -318,7 +352,7 @@ public class Cargo implements ModInitializer {
 
 		// Boxcar Roof
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "boxcar_roof"), BOXCAR_ROOF);
-		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "boxcar_roof"), new HullItem(BOXCAR_ROOF, new FabricItemSettings()));
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "boxcar_roof"), new BlockItem(BOXCAR_ROOF, new FabricItemSettings()));
 
 		// Bucket of Diesel
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "diesel_bucket"), DIESEL_BUCKET);
@@ -329,9 +363,13 @@ public class Cargo implements ModInitializer {
 		// Bucket of Petroleum
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "petroleum_bucket"), PETROLEUM_BUCKET);
 
+		// Firebox
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "firebox"), FIREBOX);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "firebox"), new BlockItem(FIREBOX, new FabricItemSettings()));
+
 		// Hopper Car Hull
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "hopper_car_hull"), HOPPER_CAR_HULL);
-		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "hopper_car_hull"), new BlockItem(HOPPER_CAR_HULL, new FabricItemSettings()));
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "hopper_car_hull"), new HullItem(HOPPER_CAR_HULL, new FabricItemSettings()));
 
 		// Jack
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "jack"), JACK);
@@ -341,10 +379,6 @@ public class Cargo implements ModInitializer {
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "redstone_battery"), REDSTONE_BATTERY);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "redstone_battery"), new BlockItem(REDSTONE_BATTERY, new FabricItemSettings()));
 
-		// Refinery
-		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "refinery"), REFINERY);
-		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "refinery"), new BlockItem(REFINERY, new FabricItemSettings()));
-
 		// Rubber
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "rubber"), RUBBER);
 
@@ -352,13 +386,17 @@ public class Cargo implements ModInitializer {
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "rubber_block"), RUBBER_BLOCK);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "rubber_block"), new BlockItem(RUBBER_BLOCK, new FabricItemSettings()));
 
+		// Smokestack
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "smokestack"), SMOKESTACK);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "smokestack"), new BlockItem(SMOKESTACK, new FabricItemSettings()));
+
 		// Tank Car Hatch
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "tank_car_hatch"), TANK_CAR_HATCH);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "tank_car_hatch"), new BlockItem(TANK_CAR_HATCH, new FabricItemSettings()));
 
 		// Tank Car Hull
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "tank_car_hull"), TANK_CAR_HULL);
-		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "tank_car_hull"), new BlockItem(TANK_CAR_HULL, new FabricItemSettings()));
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "tank_car_hull"), new HullItem(TANK_CAR_HULL, new FabricItemSettings()));
 
 		// Train Coupler
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "train_coupler"), TRAIN_COUPLER);
@@ -410,6 +448,9 @@ public class Cargo implements ModInitializer {
 				TRAIN_WHEELS,
 				TRAIN_UNDERCARRIAGE,
 				TRAIN_COUPLER,
+				BOILER,
+				FIREBOX,
+				SMOKESTACK,
 				BOXCAR_HULL,
 				BOXCAR_DOOR,
 				BOXCAR_ROOF,

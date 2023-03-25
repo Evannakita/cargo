@@ -104,10 +104,12 @@ public class TrackPlacementHelper {
             case SOUTH_NORTHEAST: {
                 this.neighbors.add(this.pos.south());
                 this.neighbors.add(this.pos.north().east());
+                break;
             }
             case WEST_NORTHEAST: {
                 this.neighbors.add(this.pos.west());
                 this.neighbors.add(this.pos.north().east());
+                break;
             }
             case WEST_SOUTHEAST: {
                 this.neighbors.add(this.pos.north());
@@ -585,50 +587,57 @@ public class TrackPlacementHelper {
                         } else if (SE || SW) {
                             switchShape2 = SwitchShape.NORTH_WYE;
                         }
+                        break;
                     case NORTHEAST:
                         if (SW) {
                             switchShape2 = SwitchShape.NORTHEAST_LEFT;
                         } else if (S || W) {
                             switchShape2 = SwitchShape.NORTHEAST_WYE;
                         }
+                        break;
                     case EAST:
                         if (W) {
                             switchShape2 = SwitchShape.EAST_LEFT;
                         } else if (SW || NW) {
                             switchShape2 = SwitchShape.EAST_WYE;
                         }
+                        break;
                     case SOUTHEAST:
                         if (NW) {
                             switchShape2 = SwitchShape.SOUTHEAST_LEFT;
                         } else if (N || W) {
                             switchShape2 = SwitchShape.SOUTHEAST_WYE;
                         }
+                        break;
                     case SOUTH:
                         if (N) {
                             switchShape2 = SwitchShape.SOUTH_LEFT;
                         } else if (NE || NW) {
                             switchShape2 = SwitchShape.SOUTH_WYE;
                         }
+                        break;
                     case SOUTHWEST:
                         if (NE) {
                             switchShape2 = SwitchShape.SOUTHWEST_LEFT;
                         } else if (N || E) {
                             switchShape2 = SwitchShape.SOUTHWEST_WYE;
                         }
+                        break;
                     case WEST:
                         if (E) {
                             switchShape2 = SwitchShape.WEST_LEFT;
                         } else if (NE || SE) {
                             switchShape2 = SwitchShape.WEST_WYE;
                         }
+                        break;
                     case NORTHWEST:
                         if (SE) {
                             switchShape2 = SwitchShape.NORTHWEST_LEFT;
                         } else if (S || E) {
                             switchShape2 = SwitchShape.NORTHWEST_WYE;
                         }
-                    default:
                         break;
+                    default:
                 }
                 if (switchShape2 == null) {
                     if (N) {
@@ -672,6 +681,7 @@ public class TrackPlacementHelper {
                         } else if (S && SW) {
                             switchShape2 = SwitchShape.NORTH_RIGHT;
                         }
+                        break;
                     }
                     case NORTHEAST: {
                         if (N && NE) {
@@ -687,6 +697,7 @@ public class TrackPlacementHelper {
                         } else if (SW && W) {
                             switchShape2 = SwitchShape.NORTHEAST_RIGHT;
                         }
+                        break;
                     }
                     case EAST: {
                         if (N && S) {
@@ -702,6 +713,7 @@ public class TrackPlacementHelper {
                         } else if (W && NW) {
                             switchShape2 = SwitchShape.EAST_RIGHT;
                         }
+                        break;
                     }
                     case SOUTHEAST: {
                         if ((N && SE) || (SE && W)) {
@@ -717,6 +729,7 @@ public class TrackPlacementHelper {
                         } else if ((SE && NW) || (W && NW)) {
                             switchShape2 = SwitchShape.SOUTHEAST_LEFT;
                         }
+                        break;
                     }
                     case SOUTH: {
                         if (N && NE) {
@@ -732,6 +745,7 @@ public class TrackPlacementHelper {
                         } else if (S && SW) {
                             switchShape2 = SwitchShape.NORTHEAST_LEFT;
                         }
+                        break;
                     }
                     case SOUTHWEST: {
                         if ((N && NE) || (NE && SW)) {
@@ -747,6 +761,7 @@ public class TrackPlacementHelper {
                         } else if (SW && W) {
                             switchShape2 = SwitchShape.EAST_LEFT;
                         }
+                        break;
                     }
                     case WEST: {
                         if (N && S) {
@@ -762,6 +777,7 @@ public class TrackPlacementHelper {
                         } else if (W && NW) {
                             switchShape2 = SwitchShape.SOUTHEAST_LEFT;
                         }
+                        break;
                     }
                     case NORTHWEST: {
                         if (N && NW) {
@@ -777,9 +793,9 @@ public class TrackPlacementHelper {
                         } else if (W && NW) {
                             switchShape2 = SwitchShape.EAST_RIGHT;
                         }
+                        break;
                     }
                     default:
-                        break;
                 }
                 if (switchShape2 == null) {
                     if (N && NE) {

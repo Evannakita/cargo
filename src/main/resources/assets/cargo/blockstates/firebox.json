@@ -1,33 +1,33 @@
 {
     "variants": {
       "facing=east,lit=false": {
-        "model": "cargo:block/refinery",
+        "model": "cargo:block/firebox",
         "y": 90
       },
       "facing=east,lit=true": {
-        "model": "cargo:block/refinery_on",
+        "model": "cargo:block/firebox_on",
         "y": 90
       },
       "facing=north,lit=false": {
-        "model": "cargo:block/refinery"
+        "model": "cargo:block/firebox"
       },
       "facing=north,lit=true": {
-        "model": "cargo:block/refinery_on"
+        "model": "cargo:block/firebox_on"
       },
       "facing=south,lit=false": {
-        "model": "cargo:block/refinery",
+        "model": "cargo:block/firebox",
         "y": 180
       },
       "facing=south,lit=true": {
-        "model": "cargo:block/refinery_on",
+        "model": "cargo:block/firebox_on",
         "y": 180
       },
       "facing=west,lit=false": {
-        "model": "cargo:block/refinery",
+        "model": "cargo:block/firebox",
         "y": 270
       },
       "facing=west,lit=true": {
-        "model": "cargo:block/refinery_on",
+        "model": "cargo:block/firebox_on",
         "y": 270
       }
     }

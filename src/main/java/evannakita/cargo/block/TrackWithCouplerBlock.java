@@ -96,8 +96,10 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
         switch(state.get(FACING)) {
             case NORTH, SOUTH:
                 world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
+                break;
             case EAST, WEST:
                 world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
+                break;
             default:
         }
     }

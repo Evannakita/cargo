@@ -39,11 +39,6 @@ public class TrackWithWheelsBlock extends TrackWithUndercarriageBlock {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborstate, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        return this.updateConnectionsState(this.updateFacingState(state, world, pos), world, pos);
-    }
-
-    @Override
     protected BlockState updateConnectionsState(BlockState state, WorldAccess world, BlockPos pos) {
         int connections = 0;
         Direction direction = state.get(this.getFacingProperty());
@@ -55,6 +50,7 @@ public class TrackWithWheelsBlock extends TrackWithUndercarriageBlock {
                 if (world.getBlockState(pos.north()).getBlock() instanceof TrackWithWheelsBlock) {
                     ++connections;
                 }
+                break;
             }
             case EAST, WEST: {
                 if (world.getBlockState(pos.west()).getBlock() instanceof TrackWithWheelsBlock) {
@@ -63,6 +59,7 @@ public class TrackWithWheelsBlock extends TrackWithUndercarriageBlock {
                 if (world.getBlockState(pos.east()).getBlock() instanceof TrackWithWheelsBlock) {
                     ++connections;
                 }
+                break;
             }
             default:
         }

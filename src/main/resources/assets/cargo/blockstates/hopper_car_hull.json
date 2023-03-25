@@ -2,99 +2,99 @@
   "variants": {
     "offset=true,facing=north,position=middle": {
       "model": "cargo:block/hopper_car_hull_offset",
-      "y": 0
+      "y": 180
     },
     "offset=true,facing=east,position=middle": {
       "model": "cargo:block/hopper_car_hull_offset",
-      "y": 90
+      "y": 270
     },
     "offset=true,facing=south,position=middle": {
       "model": "cargo:block/hopper_car_hull_offset",
-      "y": 180
+      "y": 0
     },
     "offset=true,facing=west,position=middle": {
       "model": "cargo:block/hopper_car_hull_offset",
-      "y": 270
+      "y": 90
     },
     "offset=true,facing=north,level=1,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_bottom_left",
-      "y": 0
+      "y": 180
     },
     "offset=true,facing=east,level=1,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_bottom_left",
-      "y": 90
+      "y": 270
     },
     "offset=true,facing=south,level=1,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_bottom_left",
-      "y": 180
+      "y": 0
     },
     "offset=true,facing=west,level=1,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_bottom_left",
-      "y": 270
+      "y": 90
     },
     "offset=true,facing=north,level=1,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_bottom_right",
-      "y": 0
+      "y": 180
     },
     "offset=true,facing=east,level=1,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_bottom_right",
-      "y": 90
+      "y": 270
     },
     "offset=true,facing=south,level=1,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_bottom_right",
-      "y": 180
+      "y": 0
     },
     "offset=true,facing=west,level=1,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_bottom_right",
-      "y": 270
+      "y": 90
     },
     "offset=true,facing=north,level=2,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_top_left",
-      "y": 0
+      "y": 180
     },
     "offset=true,facing=east,level=2,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_top_left",
-      "y": 90
+      "y": 270
     },
     "offset=true,facing=south,level=2,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_top_left",
-      "y": 180
+      "y": 0
     },
     "offset=true,facing=west,level=2,position=end_left": {
       "model": "cargo:block/hopper_car_hull_end_top_left",
-      "y": 270
+      "y": 90
     },
     "offset=true,facing=north,level=2,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_top_right",
-      "y": 0
+      "y": 180
     },
     "offset=true,facing=east,level=2,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_top_right",
-      "y": 90
+      "y": 270
     },
     "offset=true,facing=south,level=2,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_top_right",
-      "y": 180
+      "y": 0
     },
     "offset=true,facing=west,level=2,position=end_right": {
       "model": "cargo:block/hopper_car_hull_end_top_right",
-      "y": 270
+      "y": 90
     },
     "offset=false,facing=north": {
       "model": "cargo:block/hopper_car_hull",
-      "y": 0
+      "y": 180
     },
     "offset=false,facing=east": {
       "model": "cargo:block/hopper_car_hull",
-      "y": 90
+      "y": 270
     },
     "offset=false,facing=south": {
       "model": "cargo:block/hopper_car_hull",
-      "y": 180
+      "y": 0
     },
     "offset=false,facing=west": {
       "model": "cargo:block/hopper_car_hull",
-      "y": 270
+      "y": 90
     }
   }
 }

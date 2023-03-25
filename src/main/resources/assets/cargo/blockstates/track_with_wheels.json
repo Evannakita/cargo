@@ -20,15 +20,15 @@
         "model": "cargo:block/track_with_wheels_narrow",
         "y": 0
       },
-      "facing=east,connections=0width=false": {
+      "facing=east,connections=0,width=false": {
         "model": "cargo:block/track_with_wheels_narrow",
         "y": 90
       },
-      "facing=south,connections=0width=false": {
+      "facing=south,connections=0,width=false": {
         "model": "cargo:block/track_with_wheels_narrow",
         "y": 180
       },
-      "facing=west,connections=0width=false": {
+      "facing=west,connections=0,width=false": {
         "model": "cargo:block/track_with_wheels_narrow",
         "y": 270
       },

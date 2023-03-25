@@ -21,11 +21,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 public class TrainStructureBlock extends HorizontalFacingBlock {
-    public static final IntProperty LEVEL = IntProperty.of("level", 0, 3);
+    public static final IntProperty LEVEL = IntProperty.of("level", 0, 2);
     public static final IntProperty CONNECTIONS = IntProperty.of("connections", 0, 2);
 
-    protected static final VoxelShape NORTH_SOUTH_SHAPE = Block.createCuboidShape(0.0, 0.0, 7.999, 16.0, 16.0, 8.001);
-    protected static final VoxelShape EAST_WEST_SHAPE = Block.createCuboidShape(7.999, 0.0, 0.0, 8.001, 16.0, 16.0);
     protected static final VoxelShape NORTH_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 8.0);
     protected static final VoxelShape EAST_SHAPE = Block.createCuboidShape(8.0, 0.0, 0.0, 16.0, 16.0, 16.0);
     protected static final VoxelShape SOUTH_SHAPE = Block.createCuboidShape(0.0, 0.0, 8.0, 16.0, 16.0, 16.0);
@@ -96,11 +94,34 @@ public class TrainStructureBlock extends HorizontalFacingBlock {
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockPos targetPos = pos;
         if (state.get(CONNECTIONS) == 1) {
-            BlockPos facingPos = pos.offset(state.get(FACING));
-            this.spawnBreakParticles(world, player, pos, world.getBlockState(facingPos));
-            world.removeBlock(facingPos, false);
-        } else if (state.get(CONNECTIONS) == 2) {
+            targetPos = pos.offset(state.get(FACING));
+        } else if(state.get(CONNECTIONS) == 2) {
+            switch (state.get(FACING)) {
+                default:
+                case NORTH, SOUTH: {
+                    if (pos.toCenterPos().getZ() < player.getZ()) {
+                        targetPos = pos.offset(Direction.SOUTH);
+                    } else {
+                        targetPos = pos.offset(Direction.NORTH);
+                    }
+                    break;
+                }
+                case EAST, WEST: {
+                    if (pos.toCenterPos().getX() < player.getX()) {
+                        targetPos = pos.offset(Direction.EAST);
+                    } else {
+                        targetPos = pos.offset(Direction.WEST);
+                    }
+                    break;
+                }
+            }
+        }
+        BlockState targetState = world.getBlockState(targetPos);
+        if (targetState.getBlock() instanceof HullBlock) {
+            this.spawnBreakParticles(world, player, pos, targetState);
+            world.removeBlock(targetPos, false);
         }
     }
 
@@ -110,8 +131,10 @@ public class TrainStructureBlock extends HorizontalFacingBlock {
             switch(state.get(FACING)) {
                 case NORTH, SOUTH:
                     world.setBlockState(pos.offset(state.get(FACING)), Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
+                    break;
                 case EAST, WEST:
                     world.setBlockState(pos.offset(state.get(FACING)), Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
+                    break;
                 default:
             }
         } else {
@@ -122,14 +145,7 @@ public class TrainStructureBlock extends HorizontalFacingBlock {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if (state.get(CONNECTIONS) == 0) {
-            switch (state.get(FACING)) {
-                default:
-                    return VoxelShapes.fullCube();
-                case NORTH, SOUTH:
-                    return NORTH_SOUTH_SHAPE;
-                case EAST, WEST:
-                    return EAST_WEST_SHAPE;
-            }
+            return VoxelShapes.empty();
         } else if (state.get(CONNECTIONS) == 1) {
             switch (state.get(FACING)) {
                 default:
@@ -150,9 +166,6 @@ public class TrainStructureBlock extends HorizontalFacingBlock {
     
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(CONNECTIONS) == 0) {
-            return VoxelShapes.empty();
-        }
         return this.getOutlineShape(state, world, pos, context);
     }
 

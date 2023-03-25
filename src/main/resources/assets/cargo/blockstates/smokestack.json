@@ -1,0 +1,7 @@
+{
+    "variants": {
+      "": {
+        "model": "cargo:block/smokestack"
+      }
+    }
+  }

@@ -25,13 +25,12 @@ public class TrainTracksItem extends BlockItem {
         World world = context.getWorld();
         BlockState blockState = world.getBlockState(blockPos);
         if (blockState.isOf(this.getBlock()) && (context.getSide() == Direction.UP)) {
-            int f = (int)MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0f) + 22.5f) / 45.0f);
-            switch (f % 2) {
+            int i = (int)MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0f) + 22.5f) / 45.0f);
+            switch (i % 2) {
                 case 0: {
                     Direction direction = context.getPlayerFacing();
-                    int i = 0;
                     BlockPos.Mutable mutable = blockPos.mutableCopy().move(direction);
-                    while (i < 15) {
+                    for (int j = 0;j < 15; j++) {
                         blockState = world.getBlockState(mutable);
                         if (!blockState.isOf(this.getBlock())) {
                             if (!blockState.canReplace(context)) break;
@@ -39,38 +38,40 @@ public class TrainTracksItem extends BlockItem {
                         }
                         mutable.move(direction);
                         if (!direction.getAxis().isHorizontal()) continue;
-                        ++i;
                     }
                     return null;
                 }
                 case 1: {
                     Direction direction1;
                     Direction direction2;
-                    switch (f) {
+                    switch (i) {
                         case 1: {
                             direction1 = Direction.NORTH;
                             direction2 = Direction.EAST;
+                            break;
                         }
                         case 3: {
                             direction1 = Direction.SOUTH;
                             direction2 = Direction.EAST;
+                            break;
                         }
                         case 5: {
                             direction1 = Direction.SOUTH;
                             direction2 = Direction.WEST;
+                            break;
                         }
                         case 7: {
                             direction1 = Direction.NORTH;
                             direction2 = Direction.WEST;
+                            break;
                         }
                         default: {
                             direction1 = Direction.UP;
                             direction2 = Direction.DOWN;
                         }
                     }
-                    int i = 0;
                     BlockPos.Mutable mutable = blockPos.mutableCopy().move(direction1).move(direction2);
-                    while (i < 15) {
+                    for (int j = 0; j < 15; j++) {
                         blockState = world.getBlockState(mutable);
                         if (!blockState.isOf(this.getBlock())) {
                             if (!blockState.canReplace(context)) break;
@@ -92,7 +93,6 @@ public class TrainTracksItem extends BlockItem {
                             );
                         }
                         mutable.move(direction1).move(direction2);
-                        ++i;
                     }
                     return null;
                 }
