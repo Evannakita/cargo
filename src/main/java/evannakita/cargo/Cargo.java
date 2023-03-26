@@ -17,6 +17,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.CookingRecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -32,6 +33,7 @@ import evannakita.cargo.block.HullBlock;
 import evannakita.cargo.block.JackBlock;
 import evannakita.cargo.block.RedstoneBatteryBlock;
 import evannakita.cargo.block.FireboxBlock;
+import evannakita.cargo.block.HeadlampBlock;
 import evannakita.cargo.block.RoofBlock;
 import evannakita.cargo.block.TrackWithWheelsBlock;
 import evannakita.cargo.block.TrackWithCouplerBlock;
@@ -167,7 +169,7 @@ public class Cargo implements ModInitializer {
 		new ScreenHandlerType<FireboxScreenHandler>(FireboxScreenHandler::new)
 	);
 
-	public static final RecipeType<RefiningRecipe> REFINING_RECIPE = Registry.register(
+	public static final RecipeType<RefiningRecipe> REFINING = Registry.register(
 		Registries.RECIPE_TYPE,
 		new Identifier(MOD_ID, "firebox"),
 		new RecipeType<RefiningRecipe>() {
@@ -178,8 +180,13 @@ public class Cargo implements ModInitializer {
 		}
 	);
 
+	public static final CookingRecipeSerializer<RefiningRecipe> REFINING_SERIALIZER = Registry.register(
+		Registries.RECIPE_SERIALIZER,
+		new Identifier(MOD_ID, "firebox"),
+		new CookingRecipeSerializer<>(RefiningRecipe::new, 200));
+
 	// Headlamp
-	public static final Block HEADLAMP = new Block(
+	public static final HeadlampBlock HEADLAMP = new HeadlampBlock(
 		FabricBlockSettings.of(Material.METAL)
 		.strength(3.5F, 3.5F)
 		.sounds(BlockSoundGroup.METAL)
