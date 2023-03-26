@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:iron_ingot"
+      },
+      "X": {
+        "item": "cargo:boxcar_hull"
+      }
+    },
+    "pattern": [
+      "# #",
+      "#X#",
+      " # "
+    ],
+    "result": {
+      "count": 1,
+      "item": "cargo:hopper_car_hull"
+    }
+  }

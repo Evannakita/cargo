@@ -2,16 +2,14 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
-        "item": "cargo:train_tracks"
+        "item": "cargo:boxcar_hull"
       }
     },
     "pattern": [
-      " # ",
-      "###",
-      " # "
+      "##"
     ],
     "result": {
-      "count": 2,
-      "item": "cargo:train_junction"
+      "count": 12,
+      "item": "cargo:boxcar_roof"
     }
   }

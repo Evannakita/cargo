@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "key": {
+      "#": {
+        "item": "minecraft:iron_bars"
+      },
+      "X": {
+        "item": "minecraft:iron_trapdoor"
+      }
+    },
+    "pattern": [
+      "# #",
+      "#X#"
+    ],
+    "result": {
+      "count": 1,
+      "item": "cargo:tank_car_hatch"
+    }
+  }

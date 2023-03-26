@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
-        "tag": "cargo:train_tracks"
+        "item": "cargo:train_tracks"
       }
     },
     "pattern": [
