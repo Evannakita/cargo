@@ -1,0 +1,8 @@
+{
+    "type": "cargo:firebox",
+    "ingredient": {
+      "item": "minecraft:coal"
+    },
+    "result": "cargo:bitumen",
+    "experience": 0.2
+  }

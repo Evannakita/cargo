@@ -9,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -18,19 +19,6 @@ import net.minecraft.world.World;
 public class BoxcarHullBlock extends HullBlock {
     public BoxcarHullBlock(Settings settings) {
         super(settings);
-    }
-
-    @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        }
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof BoxcarHullBlockEntity) {
-            player.openHandledScreen((BoxcarHullBlockEntity)blockEntity);
-            PiglinBrain.onGuardedBlockInteracted(player, true);
-        }
-        return ActionResult.CONSUME;
     }
 
     @Override
@@ -44,6 +32,23 @@ public class BoxcarHullBlock extends HullBlock {
         BlockEntity blockEntity;
         if (itemStack.hasCustomName() && (blockEntity = world.getBlockEntity(pos)) instanceof BoxcarHullBlockEntity) {
             ((BoxcarHullBlockEntity)blockEntity).setCustomName(itemStack.getName());
+        }
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        }
+        this.openScreen(world, pos, player);
+        return ActionResult.CONSUME;
+    }
+
+    protected void openScreen(World world, BlockPos pos, PlayerEntity player) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof BoxcarHullBlockEntity) {
+            player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
+            PiglinBrain.onGuardedBlockInteracted(player, true);
         }
     }
 }

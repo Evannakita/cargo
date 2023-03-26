@@ -11,12 +11,12 @@ import net.minecraft.util.math.BlockPos;
 
 public class FireboxBlockEntity extends AbstractFurnaceBlockEntity {
     public FireboxBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(Cargo.FIREBOX_ENTITY, blockPos, blockState, Cargo.REFINING_RECIPE);
+        super(Cargo.FIREBOX_ENTITY, blockPos, blockState, Cargo.REFINING);
     }
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable("cargo.refinery");
+        return Text.translatable("cargo.firebox");
     }
 
     @Override
