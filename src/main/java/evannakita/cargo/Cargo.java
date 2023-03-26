@@ -92,14 +92,6 @@ public class Cargo implements ModInitializer {
 		FabricEntityTypeBuilder.<BogieEntity>create(SpawnGroup.MISC, BogieEntity::new).dimensions(EntityDimensions.fixed(1.5f, 0.875f)).build()
 	);
 
-	// Boiler
-	public static final HullBlock BOILER = new HullBlock(
-		FabricBlockSettings.of(Material.METAL)
-		.strength(3.5F, 3.5F)
-		.sounds(BlockSoundGroup.METAL)
-		.nonOpaque()
-	);
-
 	// Boxcar
 	public static final EntityType<BoxcarEntity> BOXCAR = Registry.register(
 		Registries.ENTITY_TYPE,
@@ -184,6 +176,14 @@ public class Cargo implements ModInitializer {
 				return "firebox";
 			}
 		}
+	);
+
+	// Headlamp
+	public static final Block HEADLAMP = new Block(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(3.5F, 3.5F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
 	);
 
 	// Hopper Car Hull
@@ -338,10 +338,6 @@ public class Cargo implements ModInitializer {
 		// Bitumen
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "bitumen"), BITUMEN);
 
-		// Boiler
-		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "boiler"), BOILER);
-		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "boiler"), new HullItem(BOILER, new FabricItemSettings()));
-
 		// Boxcar Door
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "boxcar_door"), BOXCAR_DOOR);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "boxcar_door"), new HullItem(BOXCAR_DOOR, new FabricItemSettings()));
@@ -366,6 +362,10 @@ public class Cargo implements ModInitializer {
 		// Firebox
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "firebox"), FIREBOX);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "firebox"), new BlockItem(FIREBOX, new FabricItemSettings()));
+
+		// Headlamp
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "headlamp"), HEADLAMP);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "headlamp"), new HullItem(HEADLAMP, new FabricItemSettings()));
 
 		// Hopper Car Hull
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "hopper_car_hull"), HOPPER_CAR_HULL);
@@ -448,14 +448,14 @@ public class Cargo implements ModInitializer {
 				TRAIN_WHEELS,
 				TRAIN_UNDERCARRIAGE,
 				TRAIN_COUPLER,
-				BOILER,
+				TANK_CAR_HULL,
 				FIREBOX,
 				SMOKESTACK,
+				HEADLAMP,
 				BOXCAR_HULL,
 				BOXCAR_DOOR,
 				BOXCAR_ROOF,
 				HOPPER_CAR_HULL,
-				TANK_CAR_HULL,
 				TANK_CAR_HATCH
 			);
 			content.addAfter(Items.ACTIVATOR_RAIL,

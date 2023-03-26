@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": {
+      "model": "cargo:block/headlamp_on",
+      "y": 180
+    }
+  }
+}

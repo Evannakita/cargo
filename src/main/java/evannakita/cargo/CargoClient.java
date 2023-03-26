@@ -37,7 +37,6 @@ public class CargoClient implements ClientModInitializer {
         HandledScreens.register(Cargo.BOXCAR_SCREEN_HANDLER, Generic3x3ContainerScreen::new);
         HandledScreens.register(Cargo.FIREBOX_SCREEN_HANDLER, FireboxScreen::new);
 
-        BlockRenderLayerMap.INSTANCE.putBlock(Cargo.BOILER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Cargo.HOPPER_CAR_HULL, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Cargo.TANK_CAR_HATCH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Cargo.TANK_CAR_HULL, RenderLayer.getCutout());

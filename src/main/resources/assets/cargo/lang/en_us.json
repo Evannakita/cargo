@@ -7,7 +7,6 @@
 
     "block.cargo.bicycle_frame": "Bicycle Frame",
     "block.cargo.bicycle_wheel": "Bicycle Wheel",
-    "block.cargo.boiler": "Boiler",
     "block.cargo.boxcar_door": "Boxcar Door",
     "block.cargo.boxcar_hull": "Boxcar Hull",
     "block.cargo.boxcar_roof": "Boxcar Roof",
@@ -15,6 +14,7 @@
     "block.cargo.latex_bucket": "Bucket of Latex",
     "block.cargo.petroleum_bucket": "Bucket of Petroleum",
     "block.cargo.firebox": "Firebox",
+    "block.cargo.headlamp": "Headlamp",
     "block.cargo.hopper_car_hull": "Hopper Car Hull",
     "block.cargo.jack": "Jack",
     "block.cargo.rubber": "Rubber",
