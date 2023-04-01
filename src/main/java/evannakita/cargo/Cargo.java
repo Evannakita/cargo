@@ -243,6 +243,14 @@ public class Cargo implements ModInitializer {
 		.sounds(BlockSoundGroup.METAL)
 	);
 
+	// Steam Whistle
+	public static final RoofBlock STEAM_WHISTLE = new RoofBlock(
+		FabricBlockSettings.of(Material.METAL)
+		.strength(2.0F, 2.0F)
+		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
+	);
+
 	// Tank
 	public static final HullBlock TANK = new HullBlock(
 		FabricBlockSettings.of(Material.METAL)
@@ -399,6 +407,10 @@ public class Cargo implements ModInitializer {
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "smokestack"), SMOKESTACK);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "smokestack"), new BlockItem(SMOKESTACK, new FabricItemSettings()));
 
+		// Steam Whistle
+		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "steam_whistle"), STEAM_WHISTLE);
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "steam_whistle"), new TrainTracksItem(STEAM_WHISTLE, new FabricItemSettings()));
+
 		// Tank
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "tank"), TANK);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "tank"), new HullItem(TANK, new FabricItemSettings()));
@@ -460,6 +472,7 @@ public class Cargo implements ModInitializer {
 				TANK,
 				FIREBOX,
 				SMOKESTACK,
+				STEAM_WHISTLE,
 				HEADLAMP,
 				CONTAINER,
 				CONTAINER_DOOR,

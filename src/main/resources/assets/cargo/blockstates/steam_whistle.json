@@ -1,0 +1,20 @@
+{
+    "variants": {
+      "facing=north": {
+        "model": "cargo:block/steam_whistle",
+        "y": 0
+      },
+      "facing=east": {
+        "model": "cargo:block/steam_whistle",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "cargo:block/steam_whistle",
+        "y": 0
+      },
+      "facing=west": {
+        "model": "cargo:block/steam_whistle",
+        "y": 90
+      }
+    }
+  }
