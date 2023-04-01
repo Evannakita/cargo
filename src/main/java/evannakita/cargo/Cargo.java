@@ -175,7 +175,7 @@ public class Cargo implements ModInitializer {
 
 	public static final CookingRecipeSerializer<RefiningRecipe> REFINING_SERIALIZER = Registry.register(
 		Registries.RECIPE_SERIALIZER,
-		new Identifier(MOD_ID, "firebox"),
+		new Identifier(MOD_ID, "refining"),
 		new CookingRecipeSerializer<>(RefiningRecipe::new, 200));
 
 	// Flatbed

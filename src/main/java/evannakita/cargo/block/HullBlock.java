@@ -80,7 +80,7 @@ public class HullBlock extends BlockWithEntity {
         Position position = Position.MIDDLE;
         if (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK) && target.get(TrainStructureBlock.LEVEL) > 0) {
             offset = true;
-            level = target.get(LEVEL);
+            level = target.get(TrainStructureBlock.LEVEL);
             facing = side.getOpposite();
         } else if (target.getBlock() instanceof HullBlock || (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK) && target.get(TrainStructureBlock.LEVEL) == 0)) {
             Direction targetFacing = target.get(FACING);
