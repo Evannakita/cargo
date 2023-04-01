@@ -5,7 +5,7 @@
         "item": "minecraft:iron_ingot"
       },
       "X": {
-        "item": "cargo:tank_car_hull"
+        "item": "cargo:tank"
       }
     },
     "pattern": [
