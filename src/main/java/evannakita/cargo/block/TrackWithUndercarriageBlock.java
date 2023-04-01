@@ -64,14 +64,14 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
     protected BlockState updateWidthState(BlockState state, WorldAccess world, BlockPos pos) {
         switch (state.get(FACING)) {
             case NORTH, SOUTH: {
-                if (world.getBlockState(pos.up().east()).isOf(Cargo.TANK_CAR_HULL) || world.getBlockState(pos.up().west()).isOf(Cargo.TANK_CAR_HULL)) {
+                if (world.getBlockState(pos.up().east()).isOf(Cargo.TANK) || world.getBlockState(pos.up().west()).isOf(Cargo.TANK)) {
                     return state.with(WIDTH, false);
                 } else {
                     return state.with(WIDTH, true);
                 }
             }
             case EAST, WEST: {
-                if (world.getBlockState(pos.up().north()).isOf(Cargo.TANK_CAR_HULL) || world.getBlockState(pos.up().south()).isOf(Cargo.TANK_CAR_HULL)) {
+                if (world.getBlockState(pos.up().north()).isOf(Cargo.TANK) || world.getBlockState(pos.up().south()).isOf(Cargo.TANK)) {
                     return state.with(WIDTH, false);
                 } else {
                     return state.with(WIDTH, true);
