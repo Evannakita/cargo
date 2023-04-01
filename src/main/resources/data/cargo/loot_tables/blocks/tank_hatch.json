@@ -11,7 +11,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "cargo:tank_car_hull"
+            "name": "cargo:tank_hatch"
           }
         ],
         "rolls": 1.0

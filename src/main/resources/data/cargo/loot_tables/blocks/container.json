@@ -11,7 +11,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "cargo:hopper_car_hull"
+            "name": "cargo:container"
           }
         ],
         "rolls": 1.0

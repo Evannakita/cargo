@@ -1,8 +1,68 @@
 {
   "variants": {
-    "": {
+    "facing=north,offset=false,powered=false": {
+      "model": "cargo:block/headlamp",
+      "y": 0
+    },
+    "facing=east,offset=false,powered=false": {
+      "model": "cargo:block/headlamp",
+      "y": 90
+    },
+    "facing=south,offset=false,powered=false": {
+      "model": "cargo:block/headlamp",
+      "y": 180
+    },
+    "facing=west,offset=false,powered=false": {
+      "model": "cargo:block/headlamp",
+      "y": 270
+    },
+    "facing=north,offset=false,powered=true": {
+      "model": "cargo:block/headlamp_on",
+      "y": 0
+    },
+    "facing=east,offset=false,powered=true": {
+      "model": "cargo:block/headlamp_on",
+      "y": 90
+    },
+    "facing=south,offset=false,powered=true": {
       "model": "cargo:block/headlamp_on",
       "y": 180
+    },
+    "facing=west,offset=false,powered=true": {
+      "model": "cargo:block/headlamp_on",
+      "y": 270
+    },
+    "facing=north,offset=true,powered=false": {
+      "model": "cargo:block/headlamp_offset_down",
+      "y": 0
+    },
+    "facing=east,offset=true,powered=false": {
+      "model": "cargo:block/headlamp_offset_down",
+      "y": 90
+    },
+    "facing=south,offset=true,powered=false": {
+      "model": "cargo:block/headlamp_offset_down",
+      "y": 180
+    },
+    "facing=west,offset=true,powered=false": {
+      "model": "cargo:block/headlamp_offset_down",
+      "y": 270
+    },
+    "facing=north,offset=true,powered=true": {
+      "model": "cargo:block/headlamp_offset_down_on",
+      "y": 0
+    },
+    "facing=east,offset=true,powered=true": {
+      "model": "cargo:block/headlamp_offset_down_on",
+      "y": 90
+    },
+    "facing=south,offset=true,powered=true": {
+      "model": "cargo:block/headlamp_offset_down_on",
+      "y": 180
+    },
+    "facing=west,offset=true,powered=true": {
+      "model": "cargo:block/headlamp_offset_down_on",
+      "y": 270
     }
   }
 }

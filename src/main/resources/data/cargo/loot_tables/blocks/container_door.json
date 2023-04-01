@@ -11,7 +11,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "cargo:boxcar_door"
+            "name": "cargo:container_door"
           }
         ],
         "rolls": 1.0

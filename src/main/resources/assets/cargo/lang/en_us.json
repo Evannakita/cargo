@@ -1,32 +1,35 @@
 {
-    "item.cargo.train_coupler": "Train Coupler",
-    "item.cargo.train_undercarriage": "Train Undercarriage",
-    "item.cargo.train_wheels": "Train Wheels",
-
     "block.minecraft.rail": "Minecart Rails",
 
     "block.cargo.bicycle_frame": "Bicycle Frame",
     "block.cargo.bicycle_wheel": "Bicycle Wheel",
-    "block.cargo.boxcar_door": "Boxcar Door",
-    "block.cargo.boxcar_hull": "Boxcar Hull",
     "block.cargo.boxcar_roof": "Boxcar Roof",
+    "block.cargo.container": "Container",
+    "block.cargo.container_door": "Container Door",
     "block.cargo.diesel_bucket": "Bucket of Diesel",
     "block.cargo.latex_bucket": "Bucket of Latex",
     "block.cargo.petroleum_bucket": "Bucket of Petroleum",
     "block.cargo.firebox": "Firebox",
+    "block.cargo.gondola": "Gondola",
     "block.cargo.headlamp": "Headlamp",
-    "block.cargo.hopper_car_hull": "Hopper Car Hull",
     "block.cargo.jack": "Jack",
     "block.cargo.rubber": "Rubber",
     "block.cargo.rubber_block": "Rubber Block",
     "block.cargo.smokestack": "Smokestack",
-    "block.cargo.tank_car_hatch": "Tank Car Hatch",
-    "block.cargo.tank_car_hull": "Tank Car Hull",
+    "block.cargo.tank": "Tank",
+    "block.cargo.tank_hatch": "Tank Hatch",
     "block.cargo.track_with_coupler": "Train Track with Coupler",
     "block.cargo.track_with_undercarriage": "Train Track with Undercarriage",
     "block.cargo.track_with_wheels": "Train Track with Wheels",
     "block.cargo.train_junction": "Train Junction",
     "block.cargo.train_structure_block": "Train Structure Block",
     "block.cargo.train_switch": "Train Switch",
-    "block.cargo.train_tracks": "Train Tracks"
+    "block.cargo.train_tracks": "Train Tracks",
+
+    "cargo.container": "Container",
+    "cargo.firebox": "Firebox",
+
+    "item.cargo.train_coupler": "Train Coupler",
+    "item.cargo.train_undercarriage": "Train Undercarriage",
+    "item.cargo.train_wheels": "Train Wheels"
 }

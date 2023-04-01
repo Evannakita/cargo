@@ -2,19 +2,18 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
-        "item": "minecraft:iron_ingot"
+        "item": "minecraft:iron_bars"
       },
       "X": {
-        "item": "cargo:boxcar_hull"
+        "item": "minecraft:iron_trapdoor"
       }
     },
     "pattern": [
       "# #",
-      "#X#",
-      " # "
+      "#X#"
     ],
     "result": {
       "count": 1,
-      "item": "cargo:hopper_car_hull"
+      "item": "cargo:tank_hatch"
     }
   }

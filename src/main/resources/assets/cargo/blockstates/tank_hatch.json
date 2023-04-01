@@ -1,7 +1,7 @@
 {
     "variants": {
       "": {
-        "model": "cargo:block/tank_car_hatch"
+        "model": "cargo:block/tank_hatch"
       }
     }
   }

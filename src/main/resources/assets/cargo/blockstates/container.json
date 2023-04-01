@@ -1,23 +1,23 @@
 {
   "variants": {
     "offset=true,facing=north": {
-      "model": "cargo:block/boxcar_hull_offset",
+      "model": "cargo:block/container_offset",
       "y": 180
     },
     "offset=true,facing=east": {
-      "model": "cargo:block/boxcar_hull_offset",
+      "model": "cargo:block/container_offset",
       "y": 270
     },
     "offset=true,facing=south": {
-      "model": "cargo:block/boxcar_hull_offset",
+      "model": "cargo:block/container_offset",
       "y": 0
     },
     "offset=true,facing=west": {
-      "model": "cargo:block/boxcar_hull_offset",
+      "model": "cargo:block/container_offset",
       "y": 90
     },
     "offset=false": {
-      "model": "cargo:block/boxcar_hull"
+      "model": "cargo:block/container"
     }
   }
 }

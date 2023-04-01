@@ -1,51 +1,51 @@
 {
   "variants": {
     "offset=true,facing=north,level=1": {
-      "model": "cargo:block/tank_car_hull_bottom_offset",
+      "model": "cargo:block/tank_bottom_offset",
       "y": 180
     },
     "offset=true,facing=east,level=1": {
-      "model": "cargo:block/tank_car_hull_bottom_offset",
+      "model": "cargo:block/tank_bottom_offset",
       "y": 270
     },
     "offset=true,facing=south,level=1": {
-      "model": "cargo:block/tank_car_hull_bottom_offset",
+      "model": "cargo:block/tank_bottom_offset",
       "y": 0
     },
     "offset=true,facing=west,level=1": {
-      "model": "cargo:block/tank_car_hull_bottom_offset",
+      "model": "cargo:block/tank_bottom_offset",
       "y": 90
     },
     "offset=true,facing=north,level=2": {
-      "model": "cargo:block/tank_car_hull_top_offset",
+      "model": "cargo:block/tank_top_offset",
       "y": 180
     },
     "offset=true,facing=east,level=2": {
-      "model": "cargo:block/tank_car_hull_top_offset",
+      "model": "cargo:block/tank_top_offset",
       "y": 270
     },
     "offset=true,facing=south,level=2": {
-      "model": "cargo:block/tank_car_hull_top_offset",
+      "model": "cargo:block/tank_top_offset",
       "y": 0
     },
     "offset=true,facing=west,level=2": {
-      "model": "cargo:block/tank_car_hull_top_offset",
+      "model": "cargo:block/tank_top_offset",
       "y": 90
     },
     "offset=false,facing=north": {
-      "model": "cargo:block/tank_car_hull_top",
+      "model": "cargo:block/tank_top",
       "y": 180
     },
     "offset=false,facing=east": {
-      "model": "cargo:block/tank_car_hull_top",
+      "model": "cargo:block/tank_top",
       "y": 270
     },
     "offset=false,facing=south": {
-      "model": "cargo:block/tank_car_hull_top",
+      "model": "cargo:block/tank_top",
       "y": 0
     },
     "offset=false,facing=west": {
-      "model": "cargo:block/tank_car_hull_top",
+      "model": "cargo:block/tank_top",
       "y": 90
     }
   }

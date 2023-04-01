@@ -1,0 +1,57 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "block/netherite_block",
+		"particle": "block/netherite_block"
+	},
+	"elements": [
+		{
+			"from": [2, 0, 2],
+			"to": [14, 2, 14],
+			"faces": {
+				"north": {"uv": [2, 0, 14, 2], "texture": "#1"},
+				"east": {"uv": [2, 0, 14, 2], "texture": "#1"},
+				"south": {"uv": [2, 0, 14, 2], "texture": "#1"},
+				"west": {"uv": [2, 0, 14, 2], "texture": "#1"},
+				"up": {"uv": [2, 2, 14, 14], "texture": "#1"},
+				"down": {"uv": [2, 2, 14, 14], "texture": "#1"}
+			}
+		},
+		{
+			"from": [6, 2, 4],
+			"to": [10, 4, 8],
+			"faces": {
+				"north": {"uv": [6, 0, 10, 2], "texture": "#1"},
+				"east": {"uv": [6, 0, 10, 2], "texture": "#1"},
+				"south": {"uv": [6, 0, 10, 2], "texture": "#1"},
+				"west": {"uv": [6, 0, 10, 2], "texture": "#1"},
+				"up": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"down": {"uv": [6, 6, 10, 10], "texture": "#1"}
+			}
+		},
+		{
+			"from": [7, 2, 10],
+			"to": [9, 5, 12],
+			"faces": {
+				"north": {"uv": [7, 6, 9, 9], "texture": "#1"},
+				"east": {"uv": [7, 6, 9, 9], "texture": "#1"},
+				"south": {"uv": [7, 6, 9, 9], "texture": "#1"},
+				"west": {"uv": [7, 6, 9, 9], "texture": "#1"},
+				"up": {"uv": [7, 6, 9, 8], "texture": "#1"},
+				"down": {"uv": [7, 6, 9, 8], "texture": "#1"}
+			}
+		},
+		{
+			"from": [6, 5, 9],
+			"to": [10, 14, 13],
+			"faces": {
+				"north": {"uv": [6, 1, 10, 10], "texture": "#1"},
+				"east": {"uv": [6, 1, 10, 10], "texture": "#1"},
+				"south": {"uv": [6, 1, 10, 10], "texture": "#1"},
+				"west": {"uv": [6, 1, 10, 10], "texture": "#1"},
+				"up": {"uv": [6, 6, 10, 10], "texture": "#1"},
+				"down": {"uv": [6, 6, 10, 10], "texture": "#1"}
+			}
+		}
+	]
+}

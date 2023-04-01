@@ -11,12 +11,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
-public class BoxcarHullBlockEntity extends LootableContainerBlockEntity {
+public class ContainerBlockEntity extends LootableContainerBlockEntity {
     public static final int INVENTORY_SIZE = 9;
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
-    public BoxcarHullBlockEntity(BlockPos pos, BlockState state) {
-        super(Cargo.BOXCAR_HULL_ENTITY, pos, state);
+    public ContainerBlockEntity(BlockPos pos, BlockState state) {
+        super(Cargo.CONTAINER_BLOCK_ENTITY, pos, state);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class BoxcarHullBlockEntity extends LootableContainerBlockEntity {
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable("container.boxcar_hull");
+        return Text.translatable("cargo.boxcar_hull");
     }
 
     @Override

@@ -2,19 +2,16 @@
     "type": "minecraft:crafting_shaped",
     "key": {
       "#": {
-        "tag": "minecraft:planks"
-      },
-      "X": {
         "item": "minecraft:iron_ingot"
       }
     },
     "pattern": [
-      "###",
-      "X X",
-      "###"
+      "# #",
+      "# #",
+      " # "
     ],
     "result": {
       "count": 4,
-      "item": "cargo:boxcar_hull"
+      "item": "cargo:gondola"
     }
   }

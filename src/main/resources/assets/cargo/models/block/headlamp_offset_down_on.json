@@ -1,5 +1,5 @@
 {
-    "parent": "cargo:block/headlamp",
+    "parent": "cargo:block/headlamp_offset_down",
     "textures": {
 		"0": "block/netherite_block",
 		"1": "block/redstone_lamp_on",

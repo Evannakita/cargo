@@ -1,8 +1,0 @@
-{
-    "parent": "cargo:block/hull",
-    "textures": {
-        "end": "cargo:block/boxcar_hull",
-        "side": "cargo:block/boxcar_door",
-        "particle": "cargo:block/boxcar_door"
-    }
-}

@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 public class HullBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty OFFSET = BooleanProperty.of("offset");
-    public static final IntProperty LEVEL = IntProperty.of("level", 0, 2);
+    public static final IntProperty LEVEL = IntProperty.of("level", 1, 2);
     public static final EnumProperty<Position> POSITION = EnumProperty.of("position", Position.class);
 
     protected static final VoxelShape NORTH_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 8.0);
@@ -46,7 +46,7 @@ public class HullBlock extends BlockWithEntity {
             this.stateManager.getDefaultState()
                 .with(FACING, Direction.NORTH)
                 .with(OFFSET, false)
-                .with(LEVEL, 0)
+                .with(LEVEL, 1)
                 .with(POSITION, Position.MIDDLE)
         );
     }
@@ -73,17 +73,10 @@ public class HullBlock extends BlockWithEntity {
         BlockPos pos = context.getBlockPos();
         Direction side = context.getSide();
         BlockPos targetPos = new BlockPos(context.getHitPos());
-        // if (!context.hitsInsideBlock()) {
-        //     switch (side) {
-        //         default:
-        //         case SOUTH, EAST, UP:
-        //             targetPos = targetPos.offset(side.getOpposite());
-        //     }
-        // }
         BlockState target = world.getBlockState(targetPos);
         Direction facing = context.getPlayerFacing();
         boolean offset = false;
-        int level = 0;
+        int level = 1;
         Position position = Position.MIDDLE;
         if (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK) && target.get(TrainStructureBlock.LEVEL) > 0) {
             offset = true;
@@ -94,8 +87,14 @@ public class HullBlock extends BlockWithEntity {
             BlockState newTarget = world.getBlockState(pos.offset(targetFacing));
             if (newTarget.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
                 facing = targetFacing;
-                level = newTarget.get(LEVEL);
+                level = newTarget.get(TrainStructureBlock.LEVEL);
                 offset = true;
+            }
+        }
+        BlockState belowState = world.getBlockState(pos.down());
+        if (belowState.isOf(this)) {
+            if (belowState.get(HullBlock.LEVEL) == 1) {
+                level = 2;
             }
         }
         if (world.getBlockState(pos.down(level).offset(facing).offset(facing.rotateYClockwise())).isOf(Cargo.TRACK_WITH_COUPLER)) {
