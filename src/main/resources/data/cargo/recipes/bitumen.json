@@ -1,5 +1,5 @@
 {
-    "type": "cargo:firebox",
+    "type": "cargo:refining",
     "ingredient": {
       "item": "minecraft:coal"
     },
