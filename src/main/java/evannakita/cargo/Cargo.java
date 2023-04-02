@@ -51,6 +51,7 @@ import evannakita.cargo.entity.BicycleEntity;
 import evannakita.cargo.entity.BogieEntity;
 import evannakita.cargo.entity.FlatbedEntity;
 import evannakita.cargo.item.BicycleItem;
+import evannakita.cargo.item.ContainerDoorItem;
 import evannakita.cargo.item.HullItem;
 import evannakita.cargo.item.TrainTracksItem;
 import evannakita.cargo.recipe.RefiningRecipe;
@@ -377,7 +378,7 @@ public class Cargo implements ModInitializer {
 
 		// Container Door
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "container_door"), CONTAINER_DOOR);
-		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "container_door"), new HullItem(CONTAINER_DOOR, new FabricItemSettings()));
+		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "container_door"), new ContainerDoorItem(CONTAINER_DOOR, new FabricItemSettings()));
 
 		// Firebox
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "firebox"), FIREBOX);

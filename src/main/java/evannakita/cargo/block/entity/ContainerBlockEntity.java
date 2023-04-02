@@ -26,7 +26,7 @@ public class ContainerBlockEntity extends LootableContainerBlockEntity {
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable("cargo.boxcar_hull");
+        return Text.translatable("cargo.container");
     }
 
     @Override

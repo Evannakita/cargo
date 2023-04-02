@@ -58,8 +58,9 @@ public class ContainerBlock extends HullBlock {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (state.get(DOOR)) {
             this.openScreen(world, pos, player);
+            return ActionResult.success(world.isClient);
         }
-        return ActionResult.success(world.isClient);
+        return ActionResult.PASS;
     }
 
     protected void openScreen(World world, BlockPos pos, PlayerEntity player) {
