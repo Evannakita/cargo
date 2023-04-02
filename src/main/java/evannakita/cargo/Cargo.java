@@ -32,6 +32,8 @@ import org.slf4j.LoggerFactory;
 import evannakita.cargo.block.HullBlock;
 import evannakita.cargo.block.JackBlock;
 import evannakita.cargo.block.RedstoneBatteryBlock;
+import evannakita.cargo.block.ContainerBlock;
+import evannakita.cargo.block.ContainerDoorBlock;
 import evannakita.cargo.block.FireboxBlock;
 import evannakita.cargo.block.HeadlampBlock;
 import evannakita.cargo.block.RoofBlock;
@@ -118,7 +120,7 @@ public class Cargo implements ModInitializer {
 	);
 
 	// Container
-	public static final HullBlock CONTAINER = new HullBlock(
+	public static final ContainerBlock CONTAINER = new ContainerBlock(
 		FabricBlockSettings.copyOf(Blocks.CHEST)
 		.strength(3.5F, 3.5F)
 		.sounds(BlockSoundGroup.METAL)
@@ -137,10 +139,11 @@ public class Cargo implements ModInitializer {
 	);
 
 	// Container Door
-	public static final HullBlock CONTAINER_DOOR = new HullBlock(
-		FabricBlockSettings.copyOf(Blocks.CHEST)
+	public static final ContainerDoorBlock CONTAINER_DOOR = new ContainerDoorBlock(
+		FabricBlockSettings.of(Material.METAL)
 		.strength(3.5F, 3.5F)
 		.sounds(BlockSoundGroup.METAL)
+		.nonOpaque()
 	);
 
 	// Firebox

@@ -1,32 +1,20 @@
 {
     "variants": {
-      "offset=true,facing=north": {
-        "model": "cargo:block/container_door_offset",
+      "facing=north": {
+        "model": "cargo:block/container_door",
         "y": 180
       },
-      "offset=true,facing=east": {
-        "model": "cargo:block/container_door_offset",
+      "facing=east": {
+        "model": "cargo:block/container_door",
         "y": 270
       },
-      "offset=true,facing=south": {
-        "model": "cargo:block/container_door_offset",
+      "facing=south": {
+        "model": "cargo:block/container_door",
         "y": 0
       },
-      "offset=true,facing=west": {
-        "model": "cargo:block/container_door_offset",
+      "facing=west": {
+        "model": "cargo:block/container_door",
         "y": 90
-      },
-      "offset=false,facing=north": {
-        "model": "cargo:block/container_door"
-      },
-      "offset=false,facing=east": {
-        "model": "cargo:block/container_door"
-      },
-      "offset=false,facing=south": {
-        "model": "cargo:block/container_door"
-      },
-      "offset=false,facing=west": {
-        "model": "cargo:block/container_door"
       }
     }
   }

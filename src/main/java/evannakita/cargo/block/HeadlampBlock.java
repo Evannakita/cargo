@@ -23,7 +23,6 @@ public class HeadlampBlock extends HorizontalFacingBlock {
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
         World world = context.getWorld();
-        BlockState target = world.getBlockState(new BlockPos(context.getHitPos()));
         Direction facing = context.getSide().getOpposite();
         switch (facing) {
             case UP, DOWN:
@@ -31,6 +30,7 @@ public class HeadlampBlock extends HorizontalFacingBlock {
             default:
         }
         boolean offset = false;
+        BlockState target = world.getBlockState(new BlockPos(context.getHitPos()));
         if (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
             offset = (target.get(TrainStructureBlock.LEVEL) == 2);
         }

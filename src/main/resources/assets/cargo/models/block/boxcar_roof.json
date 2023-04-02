@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "cargo:block/boxcar_hull",
-		"particle": "cargo:block/boxcar_hull"
+		"0": "cargo:block/container",
+		"particle": "cargo:block/container"
 	},
 	"elements": [
 		{

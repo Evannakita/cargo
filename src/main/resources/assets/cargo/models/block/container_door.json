@@ -1,8 +1,22 @@
 {
-    "parent": "minecraft:block/cube_column",
+	"credit": "Made with Blockbench",
     "textures": {
-        "end": "cargo:block/container",
-        "side": "cargo:block/container_door",
-        "particle": "cargo:block/container"
-    }
+        "0": "cargo:block/container_door",
+        "particle": "cargo:block/container_door"
+    },
+	"elements": [
+		{
+			"from": [0, 0, 14],
+			"to": [16, 16, 16],
+			"color": 1,
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"east": {"uv": [14, 0, 16, 16], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 2, 16], "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 2], "texture": "#0"},
+				"down": {"uv": [0, 14, 16, 16], "texture": "#0"}
+			}
+		}
+	]
 }

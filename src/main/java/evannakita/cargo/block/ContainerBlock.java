@@ -13,10 +13,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class ContainerBlock extends HullBlock {
@@ -24,8 +26,20 @@ public class ContainerBlock extends HullBlock {
 
     public ContainerBlock(Settings settings) {
         super(settings);
+        this.setDefaultState(
+            this.stateManager.getDefaultState()
+                .with(FACING, Direction.NORTH)
+                .with(OFFSET, false)
+                .with(LEVEL, 1)
+                .with(POSITION, Position.MIDDLE)
+                .with(DOOR, false)
+        );
     }
 
+    public Property<Boolean> getDoorProperty() {
+        return DOOR;
+    }
+    
     @Override
     @Nullable
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
@@ -42,11 +56,10 @@ public class ContainerBlock extends HullBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
+        if (state.get(DOOR)) {
+            this.openScreen(world, pos, player);
         }
-        this.openScreen(world, pos, player);
-        return ActionResult.CONSUME;
+        return ActionResult.success(world.isClient);
     }
 
     protected void openScreen(World world, BlockPos pos, PlayerEntity player) {
@@ -59,6 +72,6 @@ public class ContainerBlock extends HullBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OFFSET, LEVEL, DOOR);
+        builder.add(FACING, OFFSET, LEVEL, POSITION, DOOR);
     }
 }
