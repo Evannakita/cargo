@@ -1,6 +1,6 @@
 package evannakita.cargo.block;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import evannakita.cargo.block.enums.TrackShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -30,28 +30,28 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
     
     protected BlockState updateFacingState(BlockState state, WorldAccess world, BlockPos pos) {
         Direction facing = state.get(FACING);
-        if (world.getBlockState(pos.north()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+        if (world.getBlockState(pos.north()).isOf(ModBlocks.TRACK_WITH_UNDERCARRIAGE)) {
             facing = Direction.NORTH;
         }
-        if (world.getBlockState(pos.east()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+        if (world.getBlockState(pos.east()).isOf(ModBlocks.TRACK_WITH_UNDERCARRIAGE)) {
             facing = Direction.EAST;
         }
-        if (world.getBlockState(pos.south()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+        if (world.getBlockState(pos.south()).isOf(ModBlocks.TRACK_WITH_UNDERCARRIAGE)) {
             facing = Direction.SOUTH;
         }
-        if (world.getBlockState(pos.west()).isOf(Cargo.TRACK_WITH_UNDERCARRIAGE)) {
+        if (world.getBlockState(pos.west()).isOf(ModBlocks.TRACK_WITH_UNDERCARRIAGE)) {
             facing = Direction.WEST;
         }
-        if (world.getBlockState(pos.north()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+        if (world.getBlockState(pos.north()).isOf(ModBlocks.TRACK_WITH_WHEELS)) {
             facing = Direction.NORTH;
         }
-        if (world.getBlockState(pos.east()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+        if (world.getBlockState(pos.east()).isOf(ModBlocks.TRACK_WITH_WHEELS)) {
             facing = Direction.EAST;
         }
-        if (world.getBlockState(pos.south()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+        if (world.getBlockState(pos.south()).isOf(ModBlocks.TRACK_WITH_WHEELS)) {
             facing = Direction.SOUTH;
         }
-        if (world.getBlockState(pos.west()).isOf(Cargo.TRACK_WITH_WHEELS)) {
+        if (world.getBlockState(pos.west()).isOf(ModBlocks.TRACK_WITH_WHEELS)) {
             facing = Direction.WEST;
         }
         return state.with(FACING, facing);
@@ -64,14 +64,14 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
     protected BlockState updateWidthState(BlockState state, WorldAccess world, BlockPos pos) {
         switch (state.get(FACING)) {
             case NORTH, SOUTH: {
-                if (world.getBlockState(pos.up().east()).isOf(Cargo.TANK) || world.getBlockState(pos.up().west()).isOf(Cargo.TANK)) {
+                if (world.getBlockState(pos.up().east()).isOf(ModBlocks.TANK) || world.getBlockState(pos.up().west()).isOf(ModBlocks.TANK)) {
                     return state.with(WIDTH, false);
                 } else {
                     return state.with(WIDTH, true);
                 }
             }
             case EAST, WEST: {
-                if (world.getBlockState(pos.up().north()).isOf(Cargo.TANK) || world.getBlockState(pos.up().south()).isOf(Cargo.TANK)) {
+                if (world.getBlockState(pos.up().north()).isOf(ModBlocks.TANK) || world.getBlockState(pos.up().south()).isOf(ModBlocks.TANK)) {
                     return state.with(WIDTH, false);
                 } else {
                     return state.with(WIDTH, true);
@@ -83,7 +83,7 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
     }
 
     protected void createStructureBlocks(BlockState state, WorldAccess world, BlockPos pos) {
-        BlockState structureState = Cargo.TRAIN_STRUCTURE_BLOCK.getDefaultState();
+        BlockState structureState = ModBlocks.TRAIN_STRUCTURE_BLOCK.getDefaultState();
         Direction facing = state.get(FACING);
         if (state.get(WIDTH)) {
             switch (facing) {
@@ -120,7 +120,7 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         Direction facing = state.get(FACING);
-        if (oldState.isOf(Cargo.TRAIN_TRACKS)) {
+        if (oldState.isOf(ModBlocks.TRAIN_TRACKS)) {
             facing = Direction.NORTH;
             if (oldState.get(AbstractTrackBlock.TRACK_SHAPE) == TrackShape.EAST_WEST) {
                 facing = Direction.EAST;
@@ -150,10 +150,10 @@ public class TrackWithUndercarriageBlock extends HorizontalFacingBlock {
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         switch(state.get(FACING)) {
             case NORTH, SOUTH:
-                world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
+                world.setBlockState(pos, ModBlocks.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
                 break;
             case EAST, WEST:
-                world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
+                world.setBlockState(pos, ModBlocks.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
                 break;
             default:
         }

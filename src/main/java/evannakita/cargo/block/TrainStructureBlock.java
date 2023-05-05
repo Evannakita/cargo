@@ -1,6 +1,6 @@
 package evannakita.cargo.block;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import evannakita.cargo.block.enums.TrackShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -45,9 +45,11 @@ public class TrainStructureBlock extends HorizontalFacingBlock {
             world.removeBlock(pos, false);
             return Blocks.AIR.getDefaultState();
         } else if ((state.get(LEVEL) == 1) && (world.getBlockState(pos.up())).isAir()) {
-            world.setBlockState(pos.up(), Cargo.TRAIN_STRUCTURE_BLOCK.updateBlockState(this.getDefaultState().with(LEVEL, 2).with(FACING, baseState.get(FACING).rotateYClockwise()), world, pos.up()), Block.NOTIFY_ALL);
+            world.setBlockState(pos.up(), state.with(LEVEL, 2), Block.NOTIFY_ALL);
+            this.updateBlockState(world.getBlockState(pos.up()), world, pos.up());
         } else if ((state.get(LEVEL) == 2) && (world.getBlockState(pos.down())).isAir()) {
-            world.setBlockState(pos.down(), Cargo.TRAIN_STRUCTURE_BLOCK.updateBlockState(this.getDefaultState().with(LEVEL, 2).with(FACING, baseState.get(FACING).rotateYClockwise()), world, pos.down()), Block.NOTIFY_ALL);
+            world.setBlockState(pos.down(), state.with(LEVEL, 2), Block.NOTIFY_ALL);
+            this.updateBlockState(world.getBlockState(pos.down()), world, pos.down());
         }
         Block northBlock = world.getBlockState(pos.north()).getBlock();
         Block eastBlock = world.getBlockState(pos.east()).getBlock();
@@ -130,10 +132,10 @@ public class TrainStructureBlock extends HorizontalFacingBlock {
         if (state.get(LEVEL) == 0) {
             switch(state.get(FACING)) {
                 case NORTH, SOUTH:
-                    world.setBlockState(pos.offset(state.get(FACING)), Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
+                    world.setBlockState(pos.offset(state.get(FACING)), ModBlocks.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
                     break;
                 case EAST, WEST:
-                    world.setBlockState(pos.offset(state.get(FACING)), Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
+                    world.setBlockState(pos.offset(state.get(FACING)), ModBlocks.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
                     break;
                 default:
             }

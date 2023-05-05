@@ -1,6 +1,6 @@
 package evannakita.cargo.block;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
@@ -24,7 +24,7 @@ public class RoofBlock extends HorizontalFacingBlock {
     public BlockState getPlacementState(ItemPlacementContext context) {
         BlockPos pos = new BlockPos(context.getHitPos());
         BlockState placedOn = context.getWorld().getBlockState(pos);
-        if (placedOn.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+        if (placedOn.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK)) {
             if (placedOn.get(TrainStructureBlock.LEVEL) > 0) {
                 return this.getDefaultState().with(FACING, placedOn.get(FACING));
             }

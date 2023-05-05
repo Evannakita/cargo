@@ -8,6 +8,7 @@ import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
 
 import evannakita.cargo.Cargo;
+import evannakita.cargo.ModItems;
 import evannakita.cargo.block.AbstractTrackBlock;
 import evannakita.cargo.block.enums.TrackShape;
 import net.minecraft.block.BlockState;
@@ -128,7 +129,7 @@ public class BogieEntity extends Entity {
             if (!bl || this.hasCustomName()) {
                 this.kill();
                 if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
-                    this.dropStack(new ItemStack(Cargo.TRAIN_WHEELS, 2));
+                    this.dropStack(new ItemStack(ModItems.TRAIN_WHEELS, 2));
                 }        
             } else {
                 this.discard();

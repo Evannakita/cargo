@@ -21,26 +21,7 @@ public class FlatbedEntity extends Entity {
     public FlatbedEntity(EntityType<? extends Entity> entityType, World world) {
         super(entityType, world);
     }
-
-    // public FlatbedEntity(World world, double x, double y, double z, BlockPattern blockPattern) {
-    //     this((EntityType<FlatbedEntity>)Cargo.FLATBED, world);
-    //     this.setPosition(x, y, z);
-    //     this.prevX = x;
-    //     this.prevY = y;
-    //     this.prevZ = z;
-    //     this.blockPattern = blockPattern;
-    //     this.realDimensions = new EntityDimensions(Integer.min(blockPattern.getWidth(), blockPattern.getDepth()), blockPattern.getHeight(), false);
-    //     this.setBoundingBox(new Box(x, y, z, x + blockPattern.getDepth(), y+blockPattern.getHeight(), z+blockPattern.getWidth()));
-    //     this.intersectionChecked = true;
-    // }
-
-    // public static FlatbedEntity create(World world, double x, double y, double z, BlockPattern blockPattern) {
-    //     if (blockPattern != null) {
-    //         return new FlatbedEntity(world, x, y, z, blockPattern);
-    //     }
-    //     return null;
-    // }
-
+    
     public void setDimensions(EntityDimensions dimensions) {
         this.realDimensions = dimensions;
     }

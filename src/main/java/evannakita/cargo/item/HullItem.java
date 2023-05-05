@@ -1,6 +1,6 @@
 package evannakita.cargo.item;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import evannakita.cargo.block.TrackWithUndercarriageBlock;
 import evannakita.cargo.block.TrainStructureBlock;
 import net.minecraft.block.Block;
@@ -36,9 +36,9 @@ public class HullItem extends BlockItem {
             }
         }
         BlockState target = world.getBlockState(targetPos);
-        if (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK) || target.getBlock() instanceof TrackWithUndercarriageBlock) {
+        if (target.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK) || target.getBlock() instanceof TrackWithUndercarriageBlock) {
             int targetLevel = 0;
-            if (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+            if (target.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK)) {
                 if (targetSide.getAxis() == target.get(Properties.HORIZONTAL_FACING).getAxis()) {
                     return this.place(new ItemPlacementContext(context));
                 }

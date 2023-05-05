@@ -1,6 +1,7 @@
 package evannakita.cargo.recipe;
 
 import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.Ingredient;
@@ -16,7 +17,7 @@ public class RefiningRecipe extends AbstractCookingRecipe {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(Cargo.FIREBOX);
+        return new ItemStack(ModBlocks.FIREBOX.asItem());
     }
 
     @Override

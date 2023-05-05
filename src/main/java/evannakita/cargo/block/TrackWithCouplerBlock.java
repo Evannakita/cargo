@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import evannakita.cargo.block.enums.TrackShape;
 import evannakita.cargo.entity.FlatbedEntity;
 import net.minecraft.advancement.criterion.Criteria;
@@ -16,7 +17,6 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,6 +25,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -37,8 +38,8 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty LINKED = BooleanProperty.of("linked");
 
-    public static final List<String> PATTERNS = Arrays.asList("~-0^^0-~", "~-0^^^0-~", "~-0^^^^0-~", "~-00^^00-~", "~-00^^^00-~", "~-00^^^^00-~", "~-00^^^^^00-~", "~-00^^^^^^00-~", "~-000^^^^000-~", "~-000^^^^^000-~", "~-000^^^^^^^000-~");
-    private static final Predicate<BlockState> IS_COUPLER_PREDICATE = state -> state != null && state.isOf(Cargo.TRACK_WITH_COUPLER);
+    public static final List<String> PATTERNS = Arrays.asList("~-0^^0-~", "~-0^^^0-~", "~-00^^00-~", "~-00^^^00-~", "~-00^^^^00-~", "~-000^^^000-~", "~-000^^^^000-~");
+    private static final Predicate<BlockState> IS_COUPLER_PREDICATE = state -> state != null && state.isOf(ModBlocks.TRACK_WITH_COUPLER);
 
     private static VoxelShape trackShape = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 2.0, 16.0);
     public static final VoxelShape NORTH_SHAPE = VoxelShapes.union(Block.createCuboidShape(4.0, 8.0, 0.0, 11.0, 16.0, 13.0), trackShape);
@@ -78,7 +79,7 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         Direction facing = state.get(FACING);
-        if (oldState.isOf(Cargo.TRAIN_TRACKS)) {
+        if (oldState.isOf(ModBlocks.TRAIN_TRACKS)) {
             facing = Direction.NORTH;
             if (oldState.get(AbstractTrackBlock.TRACK_SHAPE) == TrackShape.EAST_WEST) {
                 facing = Direction.EAST;
@@ -97,10 +98,10 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         switch(state.get(FACING)) {
             case NORTH, SOUTH:
-                world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
+                world.setBlockState(pos, ModBlocks.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.NORTH_SOUTH), NOTIFY_ALL);
                 break;
             case EAST, WEST:
-                world.setBlockState(pos, Cargo.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
+                world.setBlockState(pos, ModBlocks.TRAIN_TRACKS.getDefaultState().with(AbstractTrackBlock.TRACK_SHAPE, TrackShape.EAST_WEST), NOTIFY_ALL);
                 break;
             default:
         }
@@ -108,7 +109,7 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
 
     private void trySpawnEntity(World world, BlockPos pos) {
         BlockPattern.Result result = null;
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 7; i++) {
             BlockPattern blockPattern = this.getPattern(i);
             result = blockPattern.searchAround(world, pos);
             if (result != null) {
@@ -121,7 +122,23 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
     private static void spawnEntity(World world, BlockPattern blockPattern, BlockPattern.Result patternResult, BlockPos pos) {
         TrackWithCouplerBlock.breakPatternBlocks(world, patternResult);
         FlatbedEntity entity = new FlatbedEntity((EntityType<FlatbedEntity>)Cargo.FLATBED, world);
-        entity.setDimensions(new EntityDimensions(Integer.min(patternResult.getWidth(), patternResult.getDepth()), patternResult.getHeight(), false));
+        double x1 = entity.getX();
+        double y1 = entity.getY();
+        double z1 = entity.getZ();
+        double depth = blockPattern.getDepth();
+        double height = blockPattern.getHeight();
+        double width = blockPattern.getWidth();
+        switch (patternResult.getForwards()) {
+            case NORTH, SOUTH: {
+                entity.setBoundingBox(new Box(x1 - depth/2, y1 - height/2, z1 - width/2, x1 + depth/2, y1 + height/2, z1 + width/2));
+                break;
+            }
+            case EAST, WEST: {
+                entity.setBoundingBox(new Box(x1 - width/2, y1 - height/2, z1 - depth/2, x1 + width/2, y1 + height/2, z1 + depth/2));
+                break;
+            }
+            default:
+        }
         entity.setBlockPattern(blockPattern);
         world.spawnEntity(entity);
         for (ServerPlayerEntity serverPlayerEntity : world.getNonSpectatingEntities(ServerPlayerEntity.class, entity.getBoundingBox().expand(5.0))) {
@@ -137,7 +154,7 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
                     CachedBlockPosition cachedBlockPosition = patternResult.translate(i, j, k);
                     BlockState blockState = cachedBlockPosition.getBlockState();
                     if (blockState.getBlock() instanceof TrackWithCouplerBlock || blockState.getBlock() instanceof TrackWithUndercarriageBlock) {
-                        world.setBlockState(cachedBlockPosition.getBlockPos(), (Cargo.TRAIN_TRACKS.getDefaultState()), Block.NOTIFY_LISTENERS);
+                        world.setBlockState(cachedBlockPosition.getBlockPos(), (ModBlocks.TRAIN_TRACKS.getDefaultState()), Block.NOTIFY_LISTENERS);
                     } else {
                         world.breakBlock(cachedBlockPosition.getBlockPos(), false);
                         world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, cachedBlockPosition.getBlockPos(), Block.getRawIdFromState(cachedBlockPosition.getBlockState()));
@@ -162,8 +179,8 @@ public class TrackWithCouplerBlock extends HorizontalFacingBlock {
         BlockPattern pattern = BlockPatternBuilder.start()
             .aisle(PATTERNS.get(i))
             .where('-', (CachedBlockPosition.matchesBlockState(IS_COUPLER_PREDICATE)))
-            .where('0', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Cargo.TRACK_WITH_WHEELS)))
-            .where('^', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Cargo.TRACK_WITH_UNDERCARRIAGE)))
+            .where('0', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(ModBlocks.TRACK_WITH_WHEELS)))
+            .where('^', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(ModBlocks.TRACK_WITH_UNDERCARRIAGE)))
             .where('~', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Blocks.AIR)))
             .build();
         return pattern;

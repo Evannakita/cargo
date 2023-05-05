@@ -2,7 +2,7 @@ package evannakita.cargo.block;
 
 import org.jetbrains.annotations.Nullable;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -76,14 +76,14 @@ public class HullBlock extends BlockWithEntity {
         boolean offset = false;
         int level = 1;
         Position position = Position.MIDDLE;
-        if (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK) && target.get(TrainStructureBlock.LEVEL) > 0) {
+        if (target.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK) && target.get(TrainStructureBlock.LEVEL) > 0) {
             offset = true;
             level = target.get(TrainStructureBlock.LEVEL);
             facing = side.getOpposite();
-        } else if (target.getBlock() instanceof HullBlock || (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK) && target.get(TrainStructureBlock.LEVEL) == 0)) {
+        } else if (target.getBlock() instanceof HullBlock || (target.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK) && target.get(TrainStructureBlock.LEVEL) == 0)) {
             Direction targetFacing = target.get(FACING);
             BlockState newTarget = world.getBlockState(pos.offset(targetFacing));
-            if (newTarget.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+            if (newTarget.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK)) {
                 facing = targetFacing;
                 level = newTarget.get(TrainStructureBlock.LEVEL);
                 offset = true;
@@ -95,10 +95,10 @@ public class HullBlock extends BlockWithEntity {
                 level = 2;
             }
         }
-        if (world.getBlockState(pos.down(level).offset(facing).offset(facing.rotateYClockwise())).isOf(Cargo.TRACK_WITH_COUPLER)) {
+        if (world.getBlockState(pos.down(level).offset(facing).offset(facing.rotateYClockwise())).isOf(ModBlocks.TRACK_WITH_COUPLER)) {
             position = Position.END_LEFT;
         }
-        if (world.getBlockState(pos.down(level).offset(facing).offset(facing.rotateYCounterclockwise())).isOf(Cargo.TRACK_WITH_COUPLER)) {
+        if (world.getBlockState(pos.down(level).offset(facing).offset(facing.rotateYCounterclockwise())).isOf(ModBlocks.TRACK_WITH_COUPLER)) {
             position = Position.END_RIGHT;
         }
         return this.getDefaultState().with(FACING, facing).with(OFFSET, offset).with(LEVEL, level).with(POSITION, position);

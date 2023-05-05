@@ -1,6 +1,6 @@
 package evannakita.cargo.item;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import evannakita.cargo.block.ContainerBlock;
 import evannakita.cargo.block.HullBlock;
 import net.minecraft.block.Block;
@@ -34,7 +34,7 @@ public class ContainerDoorItem extends BlockItem {
             }
         }
         BlockState target = world.getBlockState(targetPos);
-        if (target.isOf(Cargo.CONTAINER)) {
+        if (target.isOf(ModBlocks.CONTAINER)) {
             if (target.get(HullBlock.OFFSET)) {
                 if (!target.get(ContainerBlock.DOOR)) {
                     world.setBlockState(targetPos, target.with(ContainerBlock.DOOR, true));

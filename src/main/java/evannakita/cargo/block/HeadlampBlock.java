@@ -1,6 +1,6 @@
 package evannakita.cargo.block;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
@@ -31,7 +31,7 @@ public class HeadlampBlock extends HorizontalFacingBlock {
         }
         boolean offset = false;
         BlockState target = world.getBlockState(new BlockPos(context.getHitPos()));
-        if (target.isOf(Cargo.TRAIN_STRUCTURE_BLOCK)) {
+        if (target.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK)) {
             offset = (target.get(TrainStructureBlock.LEVEL) == 2);
         }
         return this.getDefaultState()

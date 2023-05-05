@@ -2,7 +2,7 @@ package evannakita.cargo.client.model;
 
 import java.util.Arrays;
 
-import evannakita.cargo.Cargo;
+import evannakita.cargo.ModBlocks;
 import evannakita.cargo.entity.FlatbedEntity;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
@@ -31,7 +31,7 @@ public class FlatbedEntityModel extends EntityModel<FlatbedEntity> {
 		return getTexturedModelData(
 			BlockPatternBuilder.start()
 				.aisle("#")
-				.where('#', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Cargo.CONTAINER)))
+				.where('#', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(ModBlocks.CONTAINER)))
 				.build()
 		);
 	}

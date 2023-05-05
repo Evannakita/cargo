@@ -14,7 +14,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class FlatbedEntityRenderer extends EntityRenderer<FlatbedEntity>{
-    private static final Identifier TEXTURE = new Identifier(Cargo.MOD_ID, "textures/entity/boxcar_hull.png");
+    private static final Identifier TEXTURE = new Identifier(Cargo.MOD_ID, "textures/entity/container.png");
     protected final FlatbedEntityModel model;
 
     public FlatbedEntityRenderer(EntityRendererFactory.Context context) {
@@ -30,13 +30,6 @@ public class FlatbedEntityRenderer extends EntityRenderer<FlatbedEntity>{
             this.model.updateModel(blockPattern);
         }
         super.render(flatbedEntity, f, g, matrixStack, vertexConsumerProvider, i);
-        // matrixStack.push();
-        // float o = MathHelper.lerp(g, ((FlatbedEntity)flatbedEntity).prevPitch, ((Entity)flatbedEntity).getPitch());
-        // matrixStack.translate(0.0f, 1.4375f, 0.0f);
-        // matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f - f));
-        // matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-o));
-        // matrixStack.scale(-1.0f, -1.0f, 1.0f);
-        // this.model.setAngles(flatbedEntity, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(this.getTexture(flatbedEntity)));
         this.model.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0f);
     }
