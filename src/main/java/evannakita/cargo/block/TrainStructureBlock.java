@@ -45,11 +45,9 @@ public class TrainStructureBlock extends HorizontalFacingBlock {
             world.removeBlock(pos, false);
             return Blocks.AIR.getDefaultState();
         } else if ((state.get(LEVEL) == 1) && (world.getBlockState(pos.up())).isAir()) {
-            world.setBlockState(pos.up(), state.with(LEVEL, 2), Block.NOTIFY_ALL);
-            this.updateBlockState(world.getBlockState(pos.up()), world, pos.up());
+            world.setBlockState(pos.up(), this.updateBlockState(state.with(LEVEL, 2), world, pos.up()), Block.NOTIFY_ALL);
         } else if ((state.get(LEVEL) == 2) && (world.getBlockState(pos.down())).isAir()) {
-            world.setBlockState(pos.down(), state.with(LEVEL, 2), Block.NOTIFY_ALL);
-            this.updateBlockState(world.getBlockState(pos.down()), world, pos.down());
+            world.setBlockState(pos.down(), this.updateBlockState(state.with(LEVEL, 2), world, pos.down()), Block.NOTIFY_ALL);
         }
         Block northBlock = world.getBlockState(pos.north()).getBlock();
         Block eastBlock = world.getBlockState(pos.east()).getBlock();

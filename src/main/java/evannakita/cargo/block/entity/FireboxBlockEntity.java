@@ -1,7 +1,6 @@
 package evannakita.cargo.block.entity;
 
 import evannakita.cargo.Cargo;
-import evannakita.cargo.screen.FireboxScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,6 +20,7 @@ public class FireboxBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new FireboxScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        // return new FireboxScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+        return null;
     }
 }

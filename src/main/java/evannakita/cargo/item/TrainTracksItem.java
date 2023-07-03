@@ -28,7 +28,7 @@ public class TrainTracksItem extends BlockItem {
             int i = (int)MathHelper.floor((MathHelper.wrapDegrees(context.getPlayerYaw() - 180.0f) + 22.5f) / 45.0f);
             switch (i % 2) {
                 case 0: {
-                    Direction direction = context.getPlayerFacing();
+                    Direction direction = context.getHorizontalPlayerFacing();
                     BlockPos.Mutable mutable = blockPos.mutableCopy().move(direction);
                     for (int j = 0;j < 15; j++) {
                         blockState = world.getBlockState(mutable);

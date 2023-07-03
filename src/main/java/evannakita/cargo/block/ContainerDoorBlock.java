@@ -48,7 +48,7 @@ public class ContainerDoorBlock extends BlockWithEntity {
         Direction facing = context.getSide().getOpposite();
         switch (facing) {
             case UP, DOWN:
-                facing = context.getPlayerFacing();
+                facing = context.getHorizontalPlayerFacing();
             default:
         }
         return this.getDefaultState()

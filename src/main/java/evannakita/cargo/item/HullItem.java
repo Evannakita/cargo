@@ -13,7 +13,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class HullItem extends BlockItem {
@@ -25,16 +24,8 @@ public class HullItem extends BlockItem {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        Vec3d hitPos = context.getHitPos();
+        BlockPos targetPos = new BlockPos(context.getBlockPos());
         Direction targetSide = context.getSide();
-        BlockPos targetPos = new BlockPos(hitPos);
-        if (!context.hitsInsideBlock()) {
-            switch (targetSide) {
-                default:
-                case SOUTH, EAST, UP:
-                    targetPos = targetPos.offset(targetSide.getOpposite());
-            }
-        }
         BlockState target = world.getBlockState(targetPos);
         if (target.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK) || target.getBlock() instanceof TrackWithUndercarriageBlock) {
             int targetLevel = 0;
@@ -52,7 +43,7 @@ public class HullItem extends BlockItem {
                     switch (newTarget.get(Properties.HORIZONTAL_FACING)) {
                         default:
                         case NORTH, SOUTH: {
-                            if (newTargetPos.toCenterPos().getZ() < hitPos.getZ()) {
+                            if (newTargetPos.toCenterPos().getZ() < targetPos.getZ()) {
                                 newTargetSide = Direction.SOUTH;
                             } else {
                                 newTargetSide = Direction.NORTH;
@@ -60,7 +51,7 @@ public class HullItem extends BlockItem {
                             break;
                         }
                         case EAST, WEST: {
-                            if (newTargetPos.toCenterPos().getX() < hitPos.getX()) {
+                            if (newTargetPos.toCenterPos().getX() < targetPos.getX()) {
                                 newTargetSide = Direction.EAST;
                             } else {
                                 newTargetSide = Direction.WEST;

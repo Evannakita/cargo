@@ -17,7 +17,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 
-public class BogieEntityRenderer extends EntityRenderer<BogieEntity>{
+public class BogieEntityRenderer<T extends BogieEntity> extends EntityRenderer<T>{
     private static final Identifier TEXTURE = new Identifier(Cargo.MOD_ID, "textures/entity/bogie.png");
     protected final EntityModel<BogieEntity> model;
 
@@ -28,7 +28,7 @@ public class BogieEntityRenderer extends EntityRenderer<BogieEntity>{
     }
 
     @Override
-    public void render(BogieEntity bogieEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(T bogieEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         super.render(bogieEntity, f, g, matrixStack, vertexConsumerProvider, i);
         matrixStack.push();
         long l = (long)((Entity)bogieEntity).getId() * 493286711L;

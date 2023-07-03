@@ -10,8 +10,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class ContainerDoorItem extends BlockItem {
@@ -23,16 +21,7 @@ public class ContainerDoorItem extends BlockItem {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        Vec3d hitPos = context.getHitPos();
-        Direction targetSide = context.getSide();
-        BlockPos targetPos = new BlockPos(hitPos);
-        if (!context.hitsInsideBlock()) {
-            switch (targetSide) {
-                default:
-                case SOUTH, EAST, UP:
-                    targetPos = targetPos.offset(targetSide.getOpposite());
-            }
-        }
+        BlockPos targetPos = new BlockPos(context.getBlockPos());
         BlockState target = world.getBlockState(targetPos);
         if (target.isOf(ModBlocks.CONTAINER)) {
             if (target.get(HullBlock.OFFSET)) {

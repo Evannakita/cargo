@@ -16,8 +16,6 @@ import net.minecraft.recipe.CookingRecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.screen.Generic3x3ContainerScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
 import org.slf4j.Logger;
@@ -26,25 +24,22 @@ import org.slf4j.LoggerFactory;
 import evannakita.cargo.block.entity.ContainerBlockEntity;
 import evannakita.cargo.block.entity.JackBlockEntity;
 import evannakita.cargo.block.entity.FireboxBlockEntity;
-import evannakita.cargo.entity.BicycleEntity;
 import evannakita.cargo.entity.BogieEntity;
-import evannakita.cargo.entity.FlatbedEntity;
 import evannakita.cargo.item.ContainerDoorItem;
 import evannakita.cargo.item.HullItem;
 import evannakita.cargo.item.TrainTracksItem;
 import evannakita.cargo.recipe.RefiningRecipe;
-import evannakita.cargo.screen.FireboxScreenHandler;
 
 public class Cargo implements ModInitializer {
 	public static final String MOD_ID = "cargo";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	// Bicycle
-	public static final EntityType<BicycleEntity> BICYCLE = Registry.register(
-		Registries.ENTITY_TYPE,
-		new Identifier(MOD_ID, "bicycle"),
-		FabricEntityTypeBuilder.<BicycleEntity>create(SpawnGroup.MISC, BicycleEntity::new).build()
-	);
+	// public static final EntityType<BicycleEntity> BICYCLE = Registry.register(
+	// 	Registries.ENTITY_TYPE,
+	// 	new Identifier(MOD_ID, "bicycle"),
+	// 	FabricEntityTypeBuilder.<BicycleEntity>create(SpawnGroup.MISC, BicycleEntity::new).build()
+	// );
 
 	// Bogie
 	public static final EntityType<BogieEntity> BOGIE = Registry.register(
@@ -60,23 +55,11 @@ public class Cargo implements ModInitializer {
 		FabricBlockEntityTypeBuilder.create(ContainerBlockEntity::new, ModBlocks.CONTAINER).build()
 	);
 
-	public static final ScreenHandlerType<Generic3x3ContainerScreenHandler> BOXCAR_SCREEN_HANDLER = Registry.register(
-		Registries.SCREEN_HANDLER,
-		new Identifier(MOD_ID, "container"),
-		new ScreenHandlerType<Generic3x3ContainerScreenHandler>(Generic3x3ContainerScreenHandler::new)
-	);
-
 	// Firebox
 	public static final BlockEntityType<FireboxBlockEntity> FIREBOX_ENTITY = Registry.register(
 		Registries.BLOCK_ENTITY_TYPE,
 		new Identifier(MOD_ID, "firebox"),
 		FabricBlockEntityTypeBuilder.create(FireboxBlockEntity::new, ModBlocks.FIREBOX).build()
-	);
-
-	public static final ScreenHandlerType<FireboxScreenHandler> FIREBOX_SCREEN_HANDLER = Registry.register(
-		Registries.SCREEN_HANDLER,
-		new Identifier(MOD_ID, "firebox"),
-		new ScreenHandlerType<FireboxScreenHandler>(FireboxScreenHandler::new)
 	);
 
 	public static final RecipeType<RefiningRecipe> REFINING = Registry.register(
@@ -96,13 +79,13 @@ public class Cargo implements ModInitializer {
 		new CookingRecipeSerializer<>(RefiningRecipe::new, 200));
 
 	// Flatbed
-	public static final EntityType<FlatbedEntity> FLATBED = Registry.register(
-		Registries.ENTITY_TYPE,
-		new Identifier(MOD_ID, "flatbed"),
-		FabricEntityTypeBuilder.<FlatbedEntity>create(SpawnGroup.MISC, FlatbedEntity::new)
-			.dimensions(EntityDimensions.changing(3.0f, 1.0f))
-			.build()
-	);
+	// public static final EntityType<FlatbedEntity> FLATBED = Registry.register(
+	// 	Registries.ENTITY_TYPE,
+	// 	new Identifier(MOD_ID, "flatbed"),
+	// 	FabricEntityTypeBuilder.<FlatbedEntity>create(SpawnGroup.MISC, FlatbedEntity::new)
+	// 		.dimensions(EntityDimensions.changing(3.0f, 1.0f))
+	// 		.build()
+	// );
 
 	// Jack
 	public static final BlockEntityType<JackBlockEntity> JACK_ENTITY = Registry.register(

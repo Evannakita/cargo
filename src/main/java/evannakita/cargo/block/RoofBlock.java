@@ -22,14 +22,14 @@ public class RoofBlock extends HorizontalFacingBlock {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
-        BlockPos pos = new BlockPos(context.getHitPos());
+        BlockPos pos = new BlockPos(context.getBlockPos());
         BlockState placedOn = context.getWorld().getBlockState(pos);
         if (placedOn.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK)) {
             if (placedOn.get(TrainStructureBlock.LEVEL) > 0) {
                 return this.getDefaultState().with(FACING, placedOn.get(FACING));
             }
         }
-        return this.getDefaultState().with(FACING, context.getPlayerFacing());
+        return this.getDefaultState().with(FACING, context.getHorizontalPlayerFacing());
     }
 
     @Override

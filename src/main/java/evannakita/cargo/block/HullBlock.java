@@ -70,9 +70,9 @@ public class HullBlock extends BlockWithEntity {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         Direction side = context.getSide();
-        BlockPos targetPos = new BlockPos(context.getHitPos());
+        BlockPos targetPos = new BlockPos(context.getBlockPos());
         BlockState target = world.getBlockState(targetPos);
-        Direction facing = context.getPlayerFacing();
+        Direction facing = context.getHorizontalPlayerFacing();
         boolean offset = false;
         int level = 1;
         Position position = Position.MIDDLE;

@@ -26,11 +26,11 @@ public class HeadlampBlock extends HorizontalFacingBlock {
         Direction facing = context.getSide().getOpposite();
         switch (facing) {
             case UP, DOWN:
-                facing = context.getPlayerFacing();
+                facing = context.getHorizontalPlayerFacing();
             default:
         }
         boolean offset = false;
-        BlockState target = world.getBlockState(new BlockPos(context.getHitPos()));
+        BlockState target = world.getBlockState(new BlockPos(context.getBlockPos()));
         if (target.isOf(ModBlocks.TRAIN_STRUCTURE_BLOCK)) {
             offset = (target.get(TrainStructureBlock.LEVEL) == 2);
         }
